@@ -110,6 +110,7 @@ public class Controller extends ControllerGenerated {
     }
 
     private void updateSwipe(SwipeEvent event) {
+    	System.out.println("swipe");
         swipeXTF.setText(doubleFormat.format(event.getX()));
         swipeYTF.setText(doubleFormat.format(event.getY()));
         swipeDirectionTF.setText(event.getEventType().toString());
