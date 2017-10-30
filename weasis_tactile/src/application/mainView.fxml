@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<AnchorPane fx:id="mainPane" prefHeight="500.0" prefWidth="799.0" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainViewController">
+   <children>
+      <SplitPane fx:id="splitPane" dividerPositions="0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+            <ScrollPane fx:id="peliculeViewer" fitToHeight="true" fitToWidth="true">
+               <content>
+                  <VBox fx:id="peliculeContener" alignment="TOP_CENTER" spacing="20.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <AnchorPane fx:id="destination" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #456789FF;" />
+        </items>
+      </SplitPane>
+      <SVGPath fx:id="closePelicule" content="M8,0C3.582,0,0,3.582,0,8s3.582,8,8,8s8-3.582,8-8S12.418,0,8,0z M10.354,12.646l-0.707,0.707L4.293,8l5.354-5.354  l0.707,0.707L5.707,8L10.354,12.646z" layoutX="233.0" layoutY="35.0" scaleX="3.0" scaleY="3.0" />
+   </children>
+</AnchorPane>

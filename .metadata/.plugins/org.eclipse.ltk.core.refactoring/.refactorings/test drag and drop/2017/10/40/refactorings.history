@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 3 elements to &apos;weasis_tactile/src/application&apos;&#x0D;&#x0A;- Original project: &apos;test drag and drop&apos;&#x0D;&#x0A;- Destination element: &apos;weasis_tactile/src/application&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     2.jpg&#x0D;&#x0A;     1.jpg&#x0D;&#x0A;     3.JPG" description="Copy files" destination="=weasis_tactile/src&lt;application" element1="src/view/2.jpg" element2="src/view/1.jpg" element3="src/view/3.JPG" files="3" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1507197074090" units="0" version="1.0"/>
+</session>

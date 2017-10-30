@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\gerom\Desktop\These Master\JavaFX\AddressApp\controlsfx-controlsfx-ddd3706a94a7"/>
+		<item value="C:\Users\gerom\Desktop\These Master\JavaFX\GestureEventsExample"/>
+		<item value="C:\Users\gerom\Desktop\These_Master\JavaFX\AddressApp"/>
+		<item value="C:\Users\gerom\Desktop\These Master\JavaFX\AddressApp"/>
+	</list>
+	<section name="CleanDialogSettings">
+		<item value="662" key="DIALOG_WIDTH"/>
+		<item value="true" key="BUILD_ALL"/>
+		<item value="false" key="TOGGLE_SELECTED"/>
+		<item value="498" key="DIALOG_HEIGHT"/>
+		<item value="629" key="DIALOG_X_ORIGIN"/>
+		<item value="183" key="DIALOG_Y_ORIGIN"/>
+		<item value="true" key="BUILD_NOW"/>
+	</section>
+</section>

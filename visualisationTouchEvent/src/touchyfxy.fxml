@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/*
+ * Copyright (c) 2013, Danno Ferrin
+ *   All rights reserved.
+ *
+ *   Redistribution and use in source and binary forms, with or without
+ *   modification, are permitted provided that the following conditions are met:
+ *       * Redistributions of source code must retain the above copyright
+ *         notice, this list of conditions and the following disclaimer.
+ *       * Redistributions in binary form must reproduce the above copyright
+ *         notice, this list of conditions and the following disclaimer in the
+ *         documentation and/or other materials provided with the distribution.
+ *       * Neither the name of Danno Ferrin nor the
+ *         names of contributors may be used to endorse or promote products
+ *         derived from this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ *   ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *   WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ *   DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+ *   DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ *   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ *   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+
+<?import java.lang.Double?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="ControllerGenerated">
+  <center>
+    <StackPane minHeight="10.0" minWidth="10.0" onContextMenuRequested="#contextMenuRequested" onDragDetected="#dragStart" onDragDone="#dragStop" onDragDropped="#dragDrop" onDragEntered="#dragEnter" onDragExited="#dragExit" onDragOver="#dragOver" onInputMethodTextChanged="#inputMethodTextChange" onKeyPressed="#keyPress" onKeyReleased="#keyRelease" onKeyTyped="#keyType" onMouseClicked="#mouseClicked" onMouseDragEntered="#mouseDragEnter" onMouseDragExited="#mouseDragExit" onMouseDragOver="#mouseDragOver" onMouseDragReleased="#mouseDragRelease" onMouseDragged="#mouseDragged" onMouseEntered="#mouseEnter" onMouseExited="#mouseExit" onMouseMoved="#mouseMove" onMousePressed="#mousePress" onMouseReleased="#mouseRelease" onRotate="#rotate" onRotationFinished="#rotateEnd" onRotationStarted="#rotateStart" onScroll="#scroll" onScrollFinished="#scrollEnd" onScrollStarted="#scrollStart" onSwipeDown="#swipeDown" onSwipeLeft="#swipeLeft" onSwipeRight="#swipeRight" onSwipeUp="#swipeUp" onTouchMoved="#touchMove" onTouchPressed="#touchPress" onTouchReleased="#touchRelease" onTouchStationary="#touchStationary" onZoom="#zoom" onZoomFinished="#zoomFinish" onZoomStarted="#zoomStart" prefHeight="-1.0" prefWidth="-1.0" style="-fx-border-color: silver;&#10;-fx-border-width: 3pt;&#10;-fx-border-insets: 3pt;">
+      <children>
+        <Text fill="#dfdfdf" fontSmoothingType="LCD" mouseTransparent="true" pickOnBounds="false" rotate="315.0" scaleX="1.0" scaleY="1.0" scaleZ="1.0" smooth="true" stroke="#bfbfbf" strokeType="OUTSIDE" strokeWidth="0.0" text="Do Gestures Here!" translateX="2.0">
+          <font>
+            <Font name="System Bold" size="80.0" />
+          </font>
+        </Text>
+        <Pane prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <Arc fx:id="rotateArc" fill="DODGERBLUE" layoutX="200.0" layoutY="200.0" length="-90.0" opacity="0.0" radiusX="100.0" radiusY="100.0" smooth="false" startAngle="90.0" stroke="DODGERBLUE" strokeType="INSIDE" type="ROUND" visible="true" />
+            <Slider fx:id="zoomSlider" focusTraversable="false" layoutX="100.0" layoutY="0.0" majorTickUnit="1.0" max="2.0" min="0.0" opacity="0.0" orientation="VERTICAL" showTickLabels="false" showTickMarks="true" value="1.0" visible="true" />
+            <Group id="Group" fx:id="swipeArrow" layoutX="100.0" layoutY="100.0" opacity="0.0">
+              <children>
+                <Polygon fill="ORANGE" layoutX="25.0" layoutY="30.0" opacity="1.0" rotate="0.0" stroke="ORANGE" strokeType="INSIDE" visible="true">
+                  <points>
+                    <Double fx:value="-25.0" />
+                    <Double fx:value="20.0" />
+                    <Double fx:value="25.0" />
+                    <Double fx:value="20.0" />
+                    <Double fx:value="0.0" />
+                    <Double fx:value="-30.0" />
+                  </points>
+                </Polygon>
+                <Line endX="0.0" endY="50.0" layoutX="25.0" layoutY="0.0" startX="0.0" startY="0.0" />
+                <Line endX="12.5" layoutX="25.0" layoutY="25.0" startX="-12.5" />
+              </children>
+            </Group>
+            <StackPane fx:id="scrollStart" layoutX="50.0" layoutY="100.0" opacity="0.0">
+              <Circle fx:id="scrollStartCircle" fill="GREEN" radius="10.0" stroke="GREEN" strokeType="INSIDE" />
+              <Label fx:id="scrollStartLabel" text="S" textFill="WHITE" />
+            </StackPane>
+            <StackPane fx:id="scrollEnd" layoutX="50.0" layoutY="150.0" opacity="0.0">
+              <Circle fx:id="scrollEndCircle" fill="RED" radius="10.0" stroke="RED" strokeType="INSIDE" />
+              <Label fx:id="scrollEndLabel" text="E" textFill="WHITE" />
+            </StackPane>
+            <StackPane fx:id="scrollInertia" layoutX="50.0" layoutY="200.0" opacity="0.0">
+              <Circle fx:id="scrollInertiaCircle" fill="YELLOW" radius="10.0" stroke="YELLOW" strokeType="INSIDE" />
+              <Label fx:id="scrollInertiaLabel" text="I" />
+            </StackPane>
+          </children>
+        </Pane>
+      </children>
+      <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding>
+    </StackPane>
+  </center>
+  <right>
+    <VBox fillWidth="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="250.0" spacing="5.0">
+      <children>
+        <TitledPane animated="false" text="Visualizations">
+          <content>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" spacing="5.0">
+              <children>
+                <CheckBox fx:id="vizRotateCB" mnemonicParsing="false" selected="true" text="Rotate" />
+                <CheckBox fx:id="vizScrollCB" mnemonicParsing="false" selected="true" text="Scroll" />
+                <CheckBox fx:id="vizSwipeCB" mnemonicParsing="false" selected="true" text="Swipe" />
+                <CheckBox fx:id="vizZoomCB" mnemonicParsing="false" selected="true" text="Zoom" />
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+            </VBox>
+          </content>
+        </TitledPane>
+        <Separator prefWidth="200.0" />
+        <Label id="Gestures" text="Gestures" />
+        <TitledPane animated="true" expanded="false" minHeight="-Infinity" minWidth="-Infinity" text="Rotate">
+          <content>
+            <GridPane hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" vgap="5.0">
+              <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="X" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <TextField fx:id="rotateXTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Y" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <TextField fx:id="rotateYTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Total Angle" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <TextField fx:id="rotateTotalTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Last Angle" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <TextField fx:id="rotateLastTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <CheckBox fx:id="rotateInertiaCB" mnemonicParsing="false" text="Inertia" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <CheckBox fx:id="rotateDirectCB" mnemonicParsing="false" text="Direct" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+            </GridPane>
+          </content>
+        </TitledPane>
+        <TitledPane animated="true" expanded="false" minHeight="-Infinity" minWidth="-Infinity" text="Scroll">
+          <content>
+            <GridPane hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" vgap="5.0">
+              <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="X" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <TextField fx:id="scrollXTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Y" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <TextField fx:id="scrollYTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Delta X" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <TextField fx:id="scrollDeltaXTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Delta Y" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <TextField fx:id="scrollDeltaYTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Total Delta X" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.valignment="BASELINE" />
+                <TextField fx:id="scrollTotalDeltaXTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Total Delta Y" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="5" GridPane.valignment="BASELINE" />
+                <TextField fx:id="scrollTotalDeltaYTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="BASELINE" />
+                <CheckBox fx:id="scrollInertiaCB" mnemonicParsing="false" text="Inertia" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <CheckBox fx:id="scrollDirectCB" mnemonicParsing="false" text="Direct" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+            </GridPane>
+          </content>
+        </TitledPane>
+        <TitledPane animated="true" expanded="false" minHeight="-Infinity" minWidth="-Infinity" text="Swipe">
+          <content>
+            <GridPane hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" vgap="5.0">
+              <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="X" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <TextField fx:id="swipeXTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Y" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <TextField fx:id="swipeYTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Direction" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <TextField fx:id="swipeDirectionTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Touch Count" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <TextField fx:id="swipeCountTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <CheckBox fx:id="swipeInertiaCB" mnemonicParsing="false" text="Inertia" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <CheckBox fx:id="swipeDirectCB" mnemonicParsing="false" text="Direct" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+            </GridPane>
+          </content>
+        </TitledPane>
+        <TitledPane animated="true" expanded="false" minHeight="-Infinity" minWidth="-Infinity" text="Zoom">
+          <content>
+            <GridPane hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" vgap="5.0">
+              <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="X" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <TextField fx:id="zoomXTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Y" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <TextField fx:id="zoomYTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Total Zoom" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <TextField fx:id="zoomTotalTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Last Zoom" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <TextField fx:id="zoomLastTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <CheckBox fx:id="zoomInertiaCB" mnemonicParsing="false" text="Inertia" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <CheckBox fx:id="zoomDirectCB" mnemonicParsing="false" text="Direct" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+            </GridPane>
+          </content>
+        </TitledPane>
+        <Separator prefWidth="200.0" />
+        <Label text="NonGestures" />
+        <TitledPane animated="true" expanded="false" minHeight="-Infinity" minWidth="-Infinity" text="Mouse">
+          <content>
+            <GridPane hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" vgap="5.0">
+              <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="X" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <TextField fx:id="mouseXTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Y" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <TextField fx:id="mouseYTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Button" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <TextField fx:id="mouseButtonTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Click Count" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <TextField fx:id="mouseCountTF" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="5" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="BASELINE" />
+                <CheckBox fx:id="mouseSyhthesizedCB" mnemonicParsing="false" text="Synthesized" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <CheckBox fx:id="mouseStillCB" mnemonicParsing="false" text="Still" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+            </GridPane>
+          </content>
+        </TitledPane>
+        <TitledPane animated="false" text="Touch Points">
+          <content>
+            <GridPane fx:id="touchGridPane" hgap="5.0" mouseTransparent="true" vgap="5.0">
+              <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="#" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="X" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="Y" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+                <Label minHeight="-Infinity" minWidth="-Infinity" text="?" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BASELINE" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" percentWidth="25.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" percentWidth="25.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" percentWidth="25.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" percentWidth="25.0" />
+              </columnConstraints>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+                     <rowConstraints>
+                        <RowConstraints />
+                     </rowConstraints>
+            </GridPane>
+          </content>
+        </TitledPane>
+      </children>
+      <BorderPane.margin>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </BorderPane.margin>
+    </VBox>
+  </right>
+</BorderPane>

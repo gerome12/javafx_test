@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.SVGPath?>
+
+<Group fx:id="menuGroup" layoutX="-118.0" layoutY="54.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
+   <children>
+      <BorderPane fx:id="boutonPlus" layoutX="363.0" layoutY="120.0" prefHeight="70.0" prefWidth="70.0">
+         <center>
+            <SVGPath content="m2.735314,7.129162l0,2l3,0l0,3l2,0l0,-3l3,0l0,-2l-3,0l0,-3l-2,0l0,3l-3,0zm4,9c-4.41828,0 -8,-3.58172 -8,-8c0,-4.41828 3.58172,-8 8,-8c4.41828,0 8,3.58172 8,8c0,4.41828 -3.58172,8 -8,8zm0,0" scaleX="4.0" scaleY="4.0" />
+         </center>
+      </BorderPane>
+      <GridPane fx:id="menu" hgap="10.0" layoutX="118.0" layoutY="-54.0" style="-fx-background-color: #234567CC;" vgap="10.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="125.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="125.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TitledPane animated="false" collapsible="false" prefHeight="90.0" prefWidth="128.0" style="-fx-font-size: 10;" text="one finger" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <content>
+                  <HBox fx:id="oneFinger" spacing="10.0">
+                     <children>
+                        <BorderPane fx:id="translate_1" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0">
+                           <center>
+                              <SVGPath content="M31.338,14.538L27.38,10.58C26.994,10.193,26.531,10,26,10c-1.188,0-2,1.016-2,2c0,0.516,0.186,0.986,0.58,1.38L25.2,14H18  V6.8l0.62,0.62C19.014,7.814,19.484,8,20,8c0.984,0,2-0.813,2-2c0-0.531-0.193-0.994-0.58-1.38l-3.973-3.974  C17.08,0.279,16.729,0,16,0s-1.135,0.334-1.463,0.662L10.58,4.62C10.193,5.006,10,5.469,10,6c0,1.188,1.016,2,2,2  c0.516,0,0.986-0.186,1.38-0.58L14,6.8V14H6.8l0.62-0.62C7.814,12.986,8,12.516,8,12c0-0.984-0.813-2-2-2  c-0.531,0-0.994,0.193-1.38,0.58l-3.958,3.958C0.334,14.866,0,15.271,0,16s0.279,1.08,0.646,1.447L4.62,21.42  C5.006,21.807,5.469,22,6,22c1.188,0,2-1.016,2-2c0-0.516-0.186-0.986-0.58-1.38L6.8,18H14v7.2l-0.62-0.62  C12.986,24.186,12.516,24,12,24c-0.984,0-2,0.813-2,2c0,0.531,0.193,0.994,0.58,1.38l3.957,3.958C14.865,31.666,15.271,32,16,32  s1.08-0.279,1.447-0.646l3.973-3.974C21.807,26.994,22,26.531,22,26c0-1.188-1.016-2-2-2c-0.516,0-0.986,0.186-1.38,0.58L18,25.2V18  h7.2l-0.62,0.62C24.186,19.014,24,19.484,24,20c0,0.984,0.813,2,2,2c0.531,0,0.994-0.193,1.38-0.58l3.974-3.973  C31.721,17.08,32,16.729,32,16S31.666,14.866,31.338,14.538z" scaleX="1.5" scaleY="1.5" BorderPane.alignment="CENTER" />
+                           </center>
+                        </BorderPane>
+                        <BorderPane fx:id="contraste_1" layoutX="18.0" layoutY="18.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0">
+                           <center>
+                              <SVGPath content="M632,590 C635.313709,590 638,587.313709 638,584 C638,580.686291 635.313709,578 632,578 C628.686291,578 626,580.686291 626,584 C626,587.313709 628.686291,590 632,590 M632,592 C627.581722,592 624,588.418278 624,584 C624,579.581722 627.581722,576 632,576 C636.418278,576 640,579.581722 640,584 C640,588.418278 636.418278,592 632,592 M632,589 C634.761424,589 637,586.761424 637,584 C637,581.238576 634.761424,579 632,579" scaleX="3.0" scaleY="3.0" BorderPane.alignment="CENTER" />
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </HBox>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" collapsible="false" style="-fx-font-size: 10;" text="two fingers" GridPane.columnIndex="1">
+               <content>
+                  <HBox fx:id="twoFingers" spacing="10.0">
+                     <children>
+                        <BorderPane fx:id="translate_2" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0">
+                           <center>
+                              <SVGPath content="M31.338,14.538L27.38,10.58C26.994,10.193,26.531,10,26,10c-1.188,0-2,1.016-2,2c0,0.516,0.186,0.986,0.58,1.38L25.2,14H18  V6.8l0.62,0.62C19.014,7.814,19.484,8,20,8c0.984,0,2-0.813,2-2c0-0.531-0.193-0.994-0.58-1.38l-3.973-3.974  C17.08,0.279,16.729,0,16,0s-1.135,0.334-1.463,0.662L10.58,4.62C10.193,5.006,10,5.469,10,6c0,1.188,1.016,2,2,2  c0.516,0,0.986-0.186,1.38-0.58L14,6.8V14H6.8l0.62-0.62C7.814,12.986,8,12.516,8,12c0-0.984-0.813-2-2-2  c-0.531,0-0.994,0.193-1.38,0.58l-3.958,3.958C0.334,14.866,0,15.271,0,16s0.279,1.08,0.646,1.447L4.62,21.42  C5.006,21.807,5.469,22,6,22c1.188,0,2-1.016,2-2c0-0.516-0.186-0.986-0.58-1.38L6.8,18H14v7.2l-0.62-0.62  C12.986,24.186,12.516,24,12,24c-0.984,0-2,0.813-2,2c0,0.531,0.193,0.994,0.58,1.38l3.957,3.958C14.865,31.666,15.271,32,16,32  s1.08-0.279,1.447-0.646l3.973-3.974C21.807,26.994,22,26.531,22,26c0-1.188-1.016-2-2-2c-0.516,0-0.986,0.186-1.38,0.58L18,25.2V18  h7.2l-0.62,0.62C24.186,19.014,24,19.484,24,20c0,0.984,0.813,2,2,2c0.531,0,0.994-0.193,1.38-0.58l3.974-3.973  C31.721,17.08,32,16.729,32,16S31.666,14.866,31.338,14.538z" scaleX="1.5" scaleY="1.5" BorderPane.alignment="CENTER" />
+                           </center>
+                        </BorderPane>
+                        <BorderPane fx:id="contraste_2" prefHeight="50.0" prefWidth="50.0">
+                           <center>
+                              <SVGPath content="M632,590 C635.313709,590 638,587.313709 638,584 C638,580.686291 635.313709,578 632,578 C628.686291,578 626,580.686291 626,584 C626,587.313709 628.686291,590 632,590 M632,592 C627.581722,592 624,588.418278 624,584 C624,579.581722 627.581722,576 632,576 C636.418278,576 640,579.581722 640,584 C640,588.418278 636.418278,592 632,592 M632,589 C634.761424,589 637,586.761424 637,584 C637,581.238576 634.761424,579 632,579" scaleX="3.0" scaleY="3.0" BorderPane.alignment="CENTER" />
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </HBox>
+               </content>
+            </TitledPane>
+            <BorderPane fx:id="exit" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <center>
+                  <SVGPath content="M7.1,12.6 L8.5,14 L13.5,9 L8.5,4 L7.1,5.4 L9.7,8 L0,8 L0,10 L9.7,10 L7.1,12.6 L7.1,12.6 Z M16,0 L2,0 C0.9,0 0,0.9 0,2 L0,6 L2,6 L2,2 L16,2 L16,16 L2,16 L2,12 L0,12 L0,16 C0,17.1 0.9,18 2,18 L16,18 C17.1,18 18,17.1 18,16 L18,2 C18,0.9 17.1,0 16,0 L16,0 Z" scaleX="3.0" scaleY="3.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <BorderPane fx:id="reset" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <center>
+                  <SVGPath content="M 20 0 C 8.9199974 0 0 8.9199974 0 20 L 0 80 C 0 91.080002 8.9199974 100 20 100 L 80 100 C 91.080002 100 100 91.080002 100 80 L 100 20 C 100 8.9199974 91.080002 0 80 0 L 20 0 z M 48.636719 14.226562 C 60.889082 14.226562 71.636982 20.789332 77.583984 30.572266 L 84.607422 26.306641 L 84.978516 49.835938 L 64.220703 38.6875 L 71.677734 34.160156 C 66.969259 26.368904 58.437081 21.167969 48.636719 21.167969 C 37.184857 21.167969 27.44882 28.192693 23.542969 38.234375 C 23.455871 38.502525 23.397493 38.769271 23.259766 39.082031 C 22.296473 41.222173 20.089636 42.3191 18.330078 41.53125 C 17.177135 41.01256 16.456466 39.776158 16.447266 38.298828 C 16.463335 37.593688 16.724999 36.755854 17.039062 35.927734 C 21.941795 23.251392 34.2594 14.226562 48.636719 14.226562 z M 15.021484 50.164062 L 35.779297 61.3125 L 28.322266 65.839844 C 33.03074 73.631075 41.56292 78.832031 51.363281 78.832031 C 62.81514 78.832031 72.551181 71.807306 76.457031 61.765625 C 76.54413 61.497475 76.602507 61.230739 76.740234 60.917969 C 77.703528 58.777828 79.910365 57.6809 81.669922 58.46875 C 82.822866 58.98745 83.543534 60.223862 83.552734 61.701172 C 83.536665 62.406322 83.275001 63.244146 82.960938 64.072266 C 78.058205 76.748617 65.740598 85.773438 51.363281 85.773438 C 39.110918 85.773438 28.363019 79.210656 22.416016 69.427734 L 15.392578 73.693359 L 15.021484 50.164062 z" scaleX="0.6" scaleY="0.6" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </GridPane>
+
+   </children>
+</Group>

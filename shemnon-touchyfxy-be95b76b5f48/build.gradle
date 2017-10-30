@@ -1,0 +1,4 @@
+apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/javafx.plugin'
+
+group = 'com.bitbucket.shemnon.touchyfxy'
+version = '0.0'

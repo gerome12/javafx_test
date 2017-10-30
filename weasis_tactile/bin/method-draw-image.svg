@@ -1,0 +1,22 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg" style="vector-effect: non-scaling-stroke;" stroke="null">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g stroke="null">
+  <title stroke="null">background</title>
+  <rect stroke="null" fill="#fff" id="canvas_background" height="402" width="402" y="-1" x="-1"/>
+  <g style="vector-effect: non-scaling-stroke;" stroke="null" display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g stroke="null">
+  <title stroke="null">Layer 1</title>
+
+  <g stroke="null" id="svg_10">
+   <g transform="matrix(24.976919396655813,0,0,25.04848929514324,31.36855120338646,-3.2353152848521884) " id="svg_6" fill-rule="evenodd" fill="none">
+    <g stroke="null" id="svg_7" fill="#000000">
+     <path stroke="null" id="svg_8" d="m2.735314,7.129162l0,2l3,0l0,3l2,0l0,-3l3,0l0,-2l-3,0l0,-3l-2,0l0,3l-3,0zm4,9c-4.41828,0 -8,-3.58172 -8,-8c0,-4.41828 3.58172,-8 8,-8c4.41828,0 8,3.58172 8,8c0,4.41828 -3.58172,8 -8,8zm0,0"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>
