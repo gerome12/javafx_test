@@ -1,5 +1,6 @@
 //visualitation de touch event
 //commentaire ajouté dans la branche test
+//et la depuis un autre pc
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
