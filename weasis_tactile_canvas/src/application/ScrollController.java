@@ -103,6 +103,7 @@ public class ScrollController {
 				val = scrollBar.getMin();
 
 			scrollBar.setValue(val);
+			pause.stop();
 			event.consume();
 		}
 	}
