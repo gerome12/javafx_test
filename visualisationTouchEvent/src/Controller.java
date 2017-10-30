@@ -291,7 +291,7 @@ public class Controller extends ControllerGenerated {
     }
 
     private void updateTouch(TouchEvent event) {
-    	System.out.println(event.getEventType().getName());
+//    	System.out.println(event.getEventType().getName());
         // fitst clear old values
         //TODO use streams api for this
         Collection<Node> keepers = new ArrayList<>();

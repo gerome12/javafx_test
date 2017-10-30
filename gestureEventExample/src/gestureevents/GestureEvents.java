@@ -252,6 +252,7 @@ public class GestureEvents extends Application {
         rect.setOnSwipeRight(new EventHandler<SwipeEvent>() {
             @Override public void handle(SwipeEvent event) {
                 log("Rectangle: Swipe right event");
+                System.out.println("swipe : "+ event.getX()+"__"+event.getY());
                 event.consume();
             }
         });
@@ -405,7 +406,7 @@ public class GestureEvents extends Application {
         if (gestureCount == 0) {
             shape.setEffect(new Lighting());
         }
-        System.out.println("inc");
+//        System.out.println("inc");
         gestureCount++;
     }
 
@@ -419,7 +420,7 @@ public class GestureEvents extends Application {
         if (gestureCount == 0) {
             shape.setEffect(null);
         }
-        System.out.println("dec");
+//        System.out.println("dec");
     }
 
     /**
