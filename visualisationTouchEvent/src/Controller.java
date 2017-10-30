@@ -83,6 +83,7 @@ public class Controller extends ControllerGenerated {
         scrollEnd.layout();
         scrollInertia.layout();
         scrollStart.layout();
+        
     }
 
     @Override
@@ -121,6 +122,7 @@ public class Controller extends ControllerGenerated {
         centerInBounds(event.getX(), event.getY(), swipeArrow);
         swipeArrow.setOpacity(1.0);
         swipeFade.playFromStart();
+        event.consume();
     }
 
     @Override
@@ -159,6 +161,7 @@ public class Controller extends ControllerGenerated {
         zoomSlider.setValue(zoom);
 
         centerInBounds(event.getX(), event.getY(), zoomSlider);
+        event.consume();
     }
 
     @Override
@@ -232,6 +235,7 @@ public class Controller extends ControllerGenerated {
         scrollTotalDeltaYTF.setText(doubleFormat.format(event.getTotalDeltaY()));
         scrollInertiaCB.setSelected(event.isInertia());
         scrollDirectCB.setSelected(event.isDirect());
+        event.consume();
     }
 
 
@@ -268,6 +272,7 @@ public class Controller extends ControllerGenerated {
 
         rotateArc.setLayoutX(event.getX());
         rotateArc.setLayoutY(event.getY());
+        event.consume();
     }
 
     @Override
@@ -301,6 +306,7 @@ public class Controller extends ControllerGenerated {
             }
         }
         touchGridPane.getChildren().retainAll(keepers);
+        event.consume();
 
         //now add the new values
 
@@ -369,5 +375,6 @@ public class Controller extends ControllerGenerated {
         mouseCountTF.setText(Integer.toString(event.getClickCount()));
         mouseSyhthesizedCB.setSelected(event.isSynthesized());
         mouseStillCB.setSelected(event.isStillSincePress());
+        event.consume();
     }
 }
