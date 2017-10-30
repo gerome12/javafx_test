@@ -1,4 +1,4 @@
-//visualisation d'evenement touch
+//proto de weasis avec canvas
 package application;
 
 import java.util.ArrayList;
