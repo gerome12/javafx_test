@@ -1,5 +1,0 @@
-INDEX VERSION 1.130+C:\Users\pasquierge\git\javafx_test\.metadata\.plugins\org.eclipse.jdt.core
-859712059.index
-1045377522.index
-1833210118.index
-893720092.index
