@@ -360,7 +360,7 @@ public class mainViewController {
     
     private ArrayList<String> toto = new ArrayList<>();
     
-    PauseTransition pause = new PauseTransition(Duration.millis(125));
+    PauseTransition pause = new PauseTransition(Duration.millis(130));
     
     
 	private void handleTouchPress(TouchEvent event) {
