@@ -1,4 +1,4 @@
-//proto de weasis avec canvas
+//proto de weasis tactile avec canvas
 package application;
 
 import java.util.ArrayList;
