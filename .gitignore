@@ -63,3 +63,8 @@ $RECYCLE.BIN/
 *.lnk
 /.metadata/
 /.recommenders/
+
+# eclipse project file
+.settings/
+.classpath
+.project
