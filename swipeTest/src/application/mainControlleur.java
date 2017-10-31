@@ -19,6 +19,6 @@ public class mainControlleur {
 	
 	private void sw(SwipeEvent event)
 	{
-		System.out.println(event.getX+"_"+event.getY());
+		System.out.println(event.getX()+"_"+event.getY());
 	}
 }
