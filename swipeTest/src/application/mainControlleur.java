@@ -26,6 +26,6 @@ public class mainControlleur {
 	
 	private void touch(TouchEvent event)
 	{
-		System.out.println(event.getTouchPoint());
+		System.out.println("Touch"+event.getTouchPoint().getX()+"_"+event.getTouchPoint().getY());
 	}
 }
