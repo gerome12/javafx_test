@@ -13,7 +13,9 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
@@ -39,6 +41,10 @@ public class MenuController {
 	Node exit;
 	@FXML
 	Node reset;
+	@FXML
+	Node lock;
+	@FXML
+	BorderPane unlock;
 
 	
 	MainCanvas canvas;
@@ -99,8 +105,13 @@ public class MenuController {
 		reset.setOnDragEntered(this::handleOnDragEntered);
 		reset.setOnDragExited(this::handleOnDragExited);
 		reset.setOnDragDropped(this::handleOnDragDroppedReset);
+		
+		lock.setOnDragOver(this::handleOnDragOver);
+		lock.setOnDragEntered(this::handleOnDragEntered);
+		lock.setOnDragExited(this::handleOnDragExited);
+		lock.setOnDragDropped(this::handleOnDragDroppedLock);
 
-
+		unlock.setOnTouchReleased(this::handleOnTouchReleaseUnlock);
 	}
 
 	public void setParam(Scene scene, MainCanvas canvas){
@@ -210,7 +221,23 @@ public class MenuController {
 	public void handleOnDragDroppedReset(DragEvent event) {
 
 		canvas.reset();
+		event.consume();
 	}
+	
+	public void handleOnDragDroppedLock(DragEvent event) {
+
+		unlock.setVisible(true);
+		event.consume();
+	}
+	
+	public void handleOnTouchReleaseUnlock(TouchEvent event) {
+
+		unlock.setVisible(false);
+		event.consume();
+		
+	
+	}
+	
 
 
 	/*****************************************************************
