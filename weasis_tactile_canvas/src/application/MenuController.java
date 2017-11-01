@@ -2,6 +2,8 @@ package application;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -21,10 +23,11 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 public class MenuController {
+	
+	BooleanProperty lockedProperty = new SimpleBooleanProperty(false);
 
 	@FXML
 	Group menuGroup;
-
 	@FXML
 	BorderPane translate_1;
 	@FXML
@@ -139,21 +142,23 @@ public class MenuController {
 	 *                         DRAG                                  *
 	 *****************************************************************/
 	public void handleOnDragDetected(MouseEvent event) {
-        /* drag was detected, start drag-and-drop gesture*/
-		Node bouton = (Node)event.getSource();
-        System.out.println(event.getEventType().getName());
-
-        /* allow any transfer mode */
-        Dragboard db = bouton.startDragAndDrop(TransferMode.LINK);
-
-        /* put a string on dragboard */
-        ClipboardContent content = new ClipboardContent();
-        content.putString("empty");
-        db.setContent(content);
-
-        menu.setVisible(true);
-        ftShow.play();
-        event.consume();
+		if(lockedProperty.get()) {
+	        /* drag was detected, start drag-and-drop gesture*/
+			Node bouton = (Node)event.getSource();
+	        System.out.println(event.getEventType().getName());
+	
+	        /* allow any transfer mode */
+	        Dragboard db = bouton.startDragAndDrop(TransferMode.LINK);
+	
+	        /* put a string on dragboard */
+	        ClipboardContent content = new ClipboardContent();
+	        content.putString("empty");
+	        db.setContent(content);
+	
+	        menu.setVisible(true);
+	        ftShow.play();
+	        event.consume();
+		}
 	}
 
 	public void handleOnDragDone(DragEvent event) {
@@ -227,12 +232,14 @@ public class MenuController {
 	public void handleOnDragDroppedLock(DragEvent event) {
 
 		unlock.setVisible(true);
+		lockedProperty.set(true);
 		event.consume();
 	}
 	
 	public void handleOnTouchReleaseUnlock(TouchEvent event) {
 
 		unlock.setVisible(false);
+		lockedProperty.set(false);
 		event.consume();
 		
 	
