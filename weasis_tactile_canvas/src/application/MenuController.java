@@ -91,9 +91,13 @@ public class MenuController {
 		contraste_2.setOnDragDropped(this::handleOnDragDropped);
 
 		exit.setOnDragOver(this::handleOnDragOver);
+		exit.setOnDragEntered(this::handleOnDragEntered);
+		exit.setOnDragExited(this::handleOnDragExited);
 		exit.setOnDragDropped(this::handleOnDragDroppedExit);
 		
 		reset.setOnDragOver(this::handleOnDragOver);
+		reset.setOnDragEntered(this::handleOnDragEntered);
+		reset.setOnDragExited(this::handleOnDragExited);
 		reset.setOnDragDropped(this::handleOnDragDroppedReset);
 
 
