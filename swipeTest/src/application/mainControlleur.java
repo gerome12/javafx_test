@@ -16,16 +16,27 @@ public class mainControlleur {
 		rect.setOnSwipeLeft(this::sw);
 		rect.setOnSwipeRight(this::sw);
 		rect.setOnSwipeUp(this::sw);
-		rect.setOnTouchPressed(this::touch);
+		rect.setOnTouchPressed(this::touchP);
+		rect.setOnTouchReleased(this::touchR);
 	}
 	
 	private void sw(SwipeEvent event)
 	{
-		System.out.println(event.getX()+"_"+event.getY());
+		System.out.println("Swipe position : "+event.getX()+" "+event.getY());
 	}
 	
-	private void touch(TouchEvent event)
+	private double x,y;
+	private void touchP(TouchEvent event)
 	{
-		System.out.println("Touch"+event.getTouchPoint().getX()+"_"+event.getTouchPoint().getY());
+		x=event.getTouchPoint().getX();
+		y=event.getTouchPoint().getY();
+	}
+	
+	private void touchR(TouchEvent event)
+	{
+		
+		x=(x+event.getTouchPoint().getX())/2;
+		y=(y+event.getTouchPoint().getY())/2;
+		System.out.println("Touch position : "+x+" "+y);
 	}
 }
