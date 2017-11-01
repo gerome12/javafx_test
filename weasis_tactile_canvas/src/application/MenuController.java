@@ -47,7 +47,7 @@ public class MenuController {
 	@FXML
 	Node lock;
 	@FXML
-	BorderPane unlock;
+	Node unlock;
 
 	
 	MainCanvas canvas;
@@ -142,7 +142,7 @@ public class MenuController {
 	 *                         DRAG                                  *
 	 *****************************************************************/
 	public void handleOnDragDetected(MouseEvent event) {
-		if(lockedProperty.get()) {
+		if(!lockedProperty.get()) {
 	        /* drag was detected, start drag-and-drop gesture*/
 			Node bouton = (Node)event.getSource();
 	        System.out.println(event.getEventType().getName());
@@ -234,17 +234,22 @@ public class MenuController {
 		unlock.setVisible(true);
 		lockedProperty.set(true);
 		event.consume();
+		System.out.println("unlock is visible");
 	}
+	
+	
+	/*****************************************************************
+	 *                   TouchEvent                                  *
+	 *****************************************************************/
 	
 	public void handleOnTouchReleaseUnlock(TouchEvent event) {
 
+		System.out.println("unlock");
 		unlock.setVisible(false);
+		unlock.setManaged(true);
 		lockedProperty.set(false);
 		event.consume();
-		
-	
 	}
-	
 
 
 	/*****************************************************************
