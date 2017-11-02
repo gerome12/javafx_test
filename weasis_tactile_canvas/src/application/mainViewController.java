@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Set;
 
 import javafx.animation.PauseTransition;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -51,6 +53,7 @@ public class mainViewController {
 	MainCanvas canvas;
 	
 	private Scene scene;
+	BooleanProperty lockedProperty = new SimpleBooleanProperty(false);
 
 
 
@@ -254,18 +257,20 @@ public class mainViewController {
 	 *****************************************************************/
 
 	public void handleOnScroll(ScrollEvent event) {
-		MainCanvas rect = (MainCanvas) event.getSource();
-
-		switch (event.getTouchCount()) {
-		case 2 :
-			Translate(rect, event.getDeltaX(), event.getDeltaY(), 2);
-			break;
-		case 1 :
-			Contraste(rect, event.getDeltaX(), event.getDeltaY(), 1);
-			break;
+		if(lockedProperty.getValue()) {
+			MainCanvas rect = (MainCanvas) event.getSource();
+	
+			switch (event.getTouchCount()) {
+			case 2 :
+				Translate(rect, event.getDeltaX(), event.getDeltaY(), 2);
+				break;
+			case 1 :
+				Contraste(rect, event.getDeltaX(), event.getDeltaY(), 1);
+				break;
+			}
+				System.out.println(event.getEventType().getName()+", inertia: " 
+								 + event.isInertia() +", direct: " + event.isDirect());
 		}
-			System.out.println(event.getEventType().getName()+", inertia: " 
-							 + event.isInertia() +", direct: " + event.isDirect());
 			event.consume();
 	}
 

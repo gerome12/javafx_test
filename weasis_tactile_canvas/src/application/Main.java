@@ -38,6 +38,8 @@ public class Main extends Application {
         Group menu = (Group) loaderMenu.load();
         mc = (MenuController) loaderMenu.getController();
         mc.setParam(scene,vc.canvas);
+        
+        vc.lockedProperty.bind(mc.lockedProperty);
 
         // Load root layout from fxml file.
         FXMLLoader loaderScroll = new FXMLLoader();

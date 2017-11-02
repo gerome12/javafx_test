@@ -41,11 +41,7 @@ public class MainCanvas extends Canvas{
 		    }
 		});
 	}
-	
-	public void setScrollBar(ScrollController sc) {
-		this.sc = sc;
-	}
-	
+		
 	public MainCanvas(String image) {
 		this.imageName = image;
 		this.image = new Image(image);
@@ -63,6 +59,10 @@ public class MainCanvas extends Canvas{
 		    	draw();
 		    }
 		});
+	}
+	
+	public void setScrollBar(ScrollController sc) {
+		this.sc = sc;
 	}
 	
 	public void setImage(String image) {
