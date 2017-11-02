@@ -400,23 +400,25 @@ public class mainViewController {
     private Double closePeliculePosition;
     private void hidePellicule() {
     	
-    	if(peliculeViewer.isVisible()) {
-    		closePelicule.setRotate(180);
-    		closePeliculePosition = closePelicule.getLayoutX();
-    		dividerPositions = splitPane.getDividerPositions()[0];
-    		splitPane.getItems().remove(peliculeViewer);
-    		closePelicule.setLayoutX(0);
-    		peliculeViewer.setVisible(false);
-    	} else{
-    		closePelicule.setLayoutX(closePeliculePosition);
-    		closePelicule.setRotate(0);
-    		splitPane.getItems().add(0, peliculeViewer);
-    		splitPane.setDividerPosition(0, dividerPositions);
-    		peliculeViewer.setVisible(true);
+    	if(!lockedProperty.getValue()) {
+	    	
+	    	if(peliculeViewer.isVisible()) {
+	    		closePelicule.setRotate(180);
+	    		closePeliculePosition = closePelicule.getLayoutX();
+	    		dividerPositions = splitPane.getDividerPositions()[0];
+	    		splitPane.getItems().remove(peliculeViewer);
+	    		closePelicule.setLayoutX(0);
+	    		peliculeViewer.setVisible(false);
+	    	} else{
+	    		closePelicule.setLayoutX(closePeliculePosition);
+	    		closePelicule.setRotate(0);
+	    		splitPane.getItems().add(0, peliculeViewer);
+	    		splitPane.setDividerPosition(0, dividerPositions);
+	    		peliculeViewer.setVisible(true);
+	    	}
+	    	
+	    	resizeCanvas();
     	}
-    	
-    	resizeCanvas();
-
     }
 
 	//*************** FadeTransition

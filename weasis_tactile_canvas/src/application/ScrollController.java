@@ -2,6 +2,8 @@ package application;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -27,6 +29,8 @@ public class ScrollController {
 	private FadeTransition ftHide;
 	private FadeTransition ftShow;
 	private PauseTransition pause = new PauseTransition(Duration.seconds(1));
+	
+	BooleanProperty lockedProperty = new SimpleBooleanProperty(false);
 
 	private mainViewController vc;
 
@@ -96,19 +100,21 @@ public class ScrollController {
 	}
 
 	private void scroll(ScrollEvent event) {
-		if(!event.isInertia()){
-			Double delta = event.getDeltaY();
-			Double val = scrollBar.getValue() + ((delta * scrollBar.getMax())/ scrollBar.getHeight());
-
-			if(val > scrollBar.getMax())
-				val = scrollBar.getMax();
-			else if (val < scrollBar.getMin())
-				val = scrollBar.getMin();
-
-			scrollBar.setValue(val);
-			pause.stop();
-			event.consume();
+		if(!lockedProperty.getValue()) {
+			if(!event.isInertia()){
+				Double delta = event.getDeltaY();
+				Double val = scrollBar.getValue() + ((delta * scrollBar.getMax())/ scrollBar.getHeight());
+	
+				if(val > scrollBar.getMax())
+					val = scrollBar.getMax();
+				else if (val < scrollBar.getMin())
+					val = scrollBar.getMin();
+	
+				scrollBar.setValue(val);
+				pause.stop();
+			}
 		}
+		event.consume();
 	}
 
 	private void scrollFinish(ScrollEvent event) {
@@ -121,37 +127,41 @@ public class ScrollController {
 	private double startTime;
 	private double timeFirstTouch;
 	private void touchPress(TouchEvent event) {
-		startTime = System.currentTimeMillis();
-		ftHide.stop();
-		if(!scrollBar.isVisible())
-			ftShow.playFromStart();
-		else {
-			ftShow.jumpTo(Duration.millis(200));
-			ftShow.play();
+		if(!lockedProperty.getValue()) {
+			startTime = System.currentTimeMillis();
+			ftHide.stop();
+			if(!scrollBar.isVisible())
+				ftShow.playFromStart();
+			else {
+				ftShow.jumpTo(Duration.millis(200));
+				ftShow.play();
+			}
+			scrollBar.setVisible(true);
 		}
-		scrollBar.setVisible(true);
 		event.consume();
 
 	}
 
 	private void touchRelease(TouchEvent event) {
-		if(System.currentTimeMillis() - startTime < 300){
-			pause.playFromStart();
-			if(System.currentTimeMillis() - timeFirstTouch < 300) {
-				System.out.println("double");
-				scrollBar.setValue((event.getTouchPoint().getY()*scrollBar.getMax()) / zoneScrollVirtual_.getHeight());
-			}
-			else
-			{
-				System.out.println("simple");
-				timeFirstTouch = System.currentTimeMillis();
-				Double posY = event.getTouchPoint().getY();
-				Double posScroll = (scrollBar.getValue() * zoneScrollVirtual_.getHeight()) / scrollBar.getMax();
-				if(posY < posScroll)
-					scrollBar.setValue(scrollBar.getValue()-1);
+		if(!lockedProperty.getValue()) {
+			if(System.currentTimeMillis() - startTime < 300){
+				pause.playFromStart();
+				if(System.currentTimeMillis() - timeFirstTouch < 300) {
+					System.out.println("double");
+					scrollBar.setValue((event.getTouchPoint().getY()*scrollBar.getMax()) / zoneScrollVirtual_.getHeight());
+				}
 				else
-					scrollBar.setValue(scrollBar.getValue()+1);
-
+				{
+					System.out.println("simple");
+					timeFirstTouch = System.currentTimeMillis();
+					Double posY = event.getTouchPoint().getY();
+					Double posScroll = (scrollBar.getValue() * zoneScrollVirtual_.getHeight()) / scrollBar.getMax();
+					if(posY < posScroll)
+						scrollBar.setValue(scrollBar.getValue()-1);
+					else
+						scrollBar.setValue(scrollBar.getValue()+1);
+	
+				}
 			}
 		}
 		event.consume();
