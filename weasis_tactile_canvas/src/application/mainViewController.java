@@ -354,35 +354,39 @@ public class mainViewController {
     private static ArrayList<String> doubleTab2Fingers = new ArrayList<String>(Arrays.asList("press","press","release","release","press","press","release","release"));
     private static ArrayList<String> doubleTab1Finger = new ArrayList<String>(Arrays.asList("press","release","press","release"));
     
-    private ArrayList<String> toto = new ArrayList<>();
+    private ArrayList<String> touchevent = new ArrayList<>();
     
     PauseTransition pause = new PauseTransition(Duration.millis(130));
     
     
 	private void handleTouchPress(TouchEvent event) {
-		pause.stop();
-		toto.add("press");
-		pause.playFromStart();
+		if(!lockedProperty.getValue()) {
+			pause.stop();
+			touchevent.add("press");
+			pause.playFromStart();
+		}
 		event.consume();
 	}
 	
 	private void handleTouchRelease(TouchEvent event) {
-		pause.stop();
-		toto.add("release");
-		pause.playFromStart();
+		if(!lockedProperty.getValue()) {
+			pause.stop();
+			touchevent.add("release");
+			pause.playFromStart();
+		}
 		event.consume();
 	}
 	
 	private void pause(ActionEvent e) {
-		if(toto.equals(doubleTab2Fingers)) {
+		if(touchevent.equals(doubleTab2Fingers)) {
 			System.out.println("doubletap2fingers");
 			canvas.zoom(0.5, 0.5);
-		}else if (toto.equals(doubleTab1Finger)) {
+		}else if (touchevent.equals(doubleTab1Finger)) {
 			System.out.println("doubletap1finger");
 			canvas.zoom(2, 2);			
 		}
 		System.out.println("pause");
-		toto.clear();
+		touchevent.clear();
 	}
     
 
