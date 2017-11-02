@@ -1,9 +1,14 @@
 package application;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -11,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -39,6 +45,8 @@ public class MenuController {
 	Node lock;
 	@FXML
 	Node unlock;
+	@FXML
+	ProgressIndicator unlockProgress;
 
 	
 	MainCanvas canvas;
@@ -82,7 +90,11 @@ public class MenuController {
 		lock.setOnDragExited(this::handleOnDragExited);
 		lock.setOnDragDropped(this::handleOnDragDroppedLock);
 
+		
+		initUnlock();
 		unlock.setOnTouchReleased(this::handleOnTouchReleaseUnlock);
+		unlock.setOnTouchPressed(this::handleOnTouchPressUnlock);
+		
 	}
 
 	public void setParam(Scene scene, MainCanvas canvas){
@@ -207,6 +219,23 @@ public class MenuController {
 	/*****************************************************************
 	 *                   TouchEvent                                  *
 	 *****************************************************************/
+	final Timeline timeline = new Timeline();
+	IntegerProperty totoProperty = new SimpleIntegerProperty();
+	final KeyValue kv = new KeyValue(totoProperty, 100);
+	final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv);
+	
+	private void initUnlock() {
+		timeline.getKeyFrames().add(kf);
+		unlockProgress.progressProperty().bind(totoProperty.divide(100));
+	}
+	
+	public void handleOnTouchPressUnlock(TouchEvent event) {
+
+		System.out.println("unlock starting");
+		timeline.play();
+
+		event.consume();
+	}
 	
 	public void handleOnTouchReleaseUnlock(TouchEvent event) {
 
