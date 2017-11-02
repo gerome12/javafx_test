@@ -208,8 +208,10 @@ public class mainViewController {
 
 	public void handleOnDragOver(DragEvent event) {
 		/* data is dragged over the target */
-		System.out.println(event.getEventType().getName());
-		event.acceptTransferModes(TransferMode.COPY);
+		if(!lockedProperty.getValue()) {
+			System.out.println(event.getEventType().getName());
+			event.acceptTransferModes(TransferMode.COPY);
+		}
 		event.consume();
 	}
 
