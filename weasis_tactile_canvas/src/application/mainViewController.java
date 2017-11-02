@@ -175,17 +175,18 @@ public class mainViewController {
 	public void handleOnDragDetected(MouseEvent event) {
 		/* drag was detected, start drag-and-drop gesture*/
 		System.out.println("onDragDetected");
-
-		/* allow any transfer mode */
-		Dragboard db = ((PeliculeCanvas)event.getSource()).startDragAndDrop(TransferMode.COPY);
-
-		SnapshotParameters sp = new SnapshotParameters();
-		db.setDragView(((PeliculeCanvas)event.getSource()).snapshot(sp, null));
-
-		/* put a string on dragboard */
-		ClipboardContent content = new ClipboardContent();
-		content.putString(((PeliculeCanvas)event.getSource()).imageName);
-		db.setContent(content);
+		if(!lockedProperty.getValue()) {
+			/* allow any transfer mode */
+			Dragboard db = ((PeliculeCanvas)event.getSource()).startDragAndDrop(TransferMode.COPY);
+	
+			SnapshotParameters sp = new SnapshotParameters();
+			db.setDragView(((PeliculeCanvas)event.getSource()).snapshot(sp, null));
+	
+			/* put a string on dragboard */
+			ClipboardContent content = new ClipboardContent();
+			content.putString(((PeliculeCanvas)event.getSource()).imageName);
+			db.setContent(content);
+		}
 
 		event.consume();
 	}
@@ -208,10 +209,8 @@ public class mainViewController {
 
 	public void handleOnDragOver(DragEvent event) {
 		/* data is dragged over the target */
-		if(!lockedProperty.getValue()) {
-			System.out.println(event.getEventType().getName());
-			event.acceptTransferModes(TransferMode.COPY);
-		}
+		System.out.println(event.getEventType().getName());
+		event.acceptTransferModes(TransferMode.COPY);
 		event.consume();
 	}
 
