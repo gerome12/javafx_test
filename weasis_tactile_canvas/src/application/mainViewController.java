@@ -269,19 +269,15 @@ public class mainViewController {
 				Contraste(rect, event.getDeltaX(), event.getDeltaY(), 1);
 				break;
 			}
-				System.out.println(event.getEventType().getName()+", inertia: " 
-								 + event.isInertia() +", direct: " + event.isDirect());
 		}
 			event.consume();
 	}
 
 	public void handleOnScrollStart(ScrollEvent event) {
-		System.out.println(event.getEventType().getName());
 		event.consume();
 	}
 
 	public void handleOnScrollEnd(ScrollEvent event) {
-		System.out.println(event.getEventType().getName());
 		event.consume();
 	}
 
@@ -293,20 +289,15 @@ public class mainViewController {
     public void handleOnZoom(ZoomEvent event) {
     	if(!lockedProperty.getValue()) {
 	        Zoom((MainCanvas) event.getSource(), event.getZoomFactor(), event.getZoomFactor());
-	        System.out.println(event.getEventType().getName()+
-	                ", inertia: " + event.isInertia() +
-	                ", direct: " + event.isDirect());
     	}
         event.consume();
     }
 
     public void handleOnZoomStarted(ZoomEvent event) {
-        System.out.println(event.getEventType().getName());
         event.consume();
     }
 
     public void handleOnZoomFinished(ZoomEvent event) {
-        System.out.println(event.getEventType().getName());
         event.consume();
     }
     
@@ -353,6 +344,7 @@ public class mainViewController {
 //}
     
     private static ArrayList<String> doubleTab2Fingers = new ArrayList<String>(Arrays.asList("press","press","release","release","press","press","release","release"));
+    private static ArrayList<String> doubleTab3Fingers = new ArrayList<String>(Arrays.asList("press","press","press","release","release","release","press","press","press","release","release","release"));
     private static ArrayList<String> doubleTab1Finger = new ArrayList<String>(Arrays.asList("press","release","press","release"));
     
     private ArrayList<String> touchevent = new ArrayList<>();
@@ -361,6 +353,7 @@ public class mainViewController {
     
     
 	private void handleTouchPress(TouchEvent event) {
+		System.out.println("TOUCH IN MAIN VIEW CONTROLLER");
 		if(!lockedProperty.getValue()) {
 			pause.stop();
 			touchevent.add("press");
@@ -386,6 +379,10 @@ public class mainViewController {
 			System.out.println("doubletap1finger");
 			canvas.zoom(2, 2);			
 		}
+		else if (touchevent.equals(doubleTab3Fingers)) {
+			canvas.reset();
+		}
+		
 		System.out.println("pause");
 		touchevent.clear();
 	}

@@ -11,9 +11,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 
@@ -63,7 +65,7 @@ public class ScrollController {
 
 		pause.setOnFinished(e->ftHide.playFromStart());
 
-		scrollBar.setVisible(false);
+		ftHide.playFrom(Duration.millis(999));
 	}
 	
 	public void setParam(Scene scene, mainViewController vc){
@@ -136,10 +138,8 @@ public class ScrollController {
 				ftShow.jumpTo(Duration.millis(200));
 				ftShow.play();
 			}
-			scrollBar.setVisible(true);
 		}
 		event.consume();
-
 	}
 
 	private void touchRelease(TouchEvent event) {
@@ -171,7 +171,6 @@ public class ScrollController {
 	 *                   FadeTransition                              *
 	 *****************************************************************/
 	public void handleFadeTransitionEnd(ActionEvent event) {
-		scrollBar.setVisible(false);
 		event.consume();
 	}
 }

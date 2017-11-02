@@ -44,9 +44,11 @@ public class MenuController {
 	@FXML
 	Node lock;
 	@FXML
-	Node unlock;
+	Node unlockBorder;
 	@FXML
 	ProgressIndicator unlockProgress;
+	@FXML
+	Node unlockProgressBorder;
 
 	
 	MainCanvas canvas;
@@ -92,8 +94,8 @@ public class MenuController {
 
 		
 		initUnlock();
-		unlock.setOnTouchReleased(this::handleOnTouchReleaseUnlock);
-		unlock.setOnTouchPressed(this::handleOnTouchPressUnlock);
+		unlockBorder.setOnTouchReleased(this::handleOnTouchReleaseUnlock);
+		unlockBorder.setOnTouchPressed(this::handleOnTouchPressUnlock);
 		
 	}
 
@@ -209,7 +211,7 @@ public class MenuController {
 	
 	public void handleOnDragDroppedLock(DragEvent event) {
 
-		unlock.setVisible(true);
+		menuGroup.getChildren().add(unlockBorder);
 		lockedProperty.set(true);
 		event.consume();
 		System.out.println("unlock is visible");
@@ -217,14 +219,17 @@ public class MenuController {
 	
 	
 	/*****************************************************************
-	 *                   TouchEvent                                  *
+	 *                   TouchEvent (lock)                           *
 	 *****************************************************************/
+	private final Duration UNLOCK_TIME = Duration.millis(800);
+	
 	final Timeline timeline = new Timeline();
 	IntegerProperty progressProperty = new SimpleIntegerProperty();
 	final KeyValue kv = new KeyValue(progressProperty, 100);
-	final KeyFrame kf = new KeyFrame(Duration.millis(800), kv);
+	final KeyFrame kf = new KeyFrame(UNLOCK_TIME, kv);
 	
 	private void initUnlock() {
+		menuGroup.getChildren().remove(unlockBorder);
 		timeline.getKeyFrames().add(kf);
 		unlockProgress.progressProperty().bind(progressProperty.divide(100.0));
 		unlockProgress.managedProperty().bind(unlockProgress.visibleProperty());
@@ -233,11 +238,12 @@ public class MenuController {
 	}
 	
 	public void handleOnTouchPressUnlock(TouchEvent event) {
-
-		unlockProgress.setVisible(true);
-		System.out.println("unlock starting");
-		timeline.playFrom(Duration.ZERO);
-
+		if(lockedProperty.getValue()) {
+			unlockProgress.setVisible(true);
+			System.out.println("unlock starting");
+			timeline.playFrom(Duration.ZERO);
+		}
+		
 		event.consume();
 	}
 	
@@ -248,9 +254,8 @@ public class MenuController {
 			timeline.stop();
 		} else {
 			System.out.println("unlock");
-			unlock.setVisible(false);
-			unlock.setManaged(true);
 			lockedProperty.set(false);
+			menuGroup.getChildren().remove(unlockBorder);
 		}
 		progressProperty.set(0);
 		unlockProgress.setVisible(false);
