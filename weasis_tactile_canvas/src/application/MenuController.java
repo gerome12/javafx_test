@@ -220,29 +220,41 @@ public class MenuController {
 	 *                   TouchEvent                                  *
 	 *****************************************************************/
 	final Timeline timeline = new Timeline();
-	IntegerProperty totoProperty = new SimpleIntegerProperty();
-	final KeyValue kv = new KeyValue(totoProperty, 100);
-	final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv);
+	IntegerProperty progressProperty = new SimpleIntegerProperty();
+	final KeyValue kv = new KeyValue(progressProperty, 100);
+	final KeyFrame kf = new KeyFrame(Duration.millis(800), kv);
 	
 	private void initUnlock() {
 		timeline.getKeyFrames().add(kf);
-		unlockProgress.progressProperty().bind(totoProperty.divide(100));
+		unlockProgress.progressProperty().bind(progressProperty.divide(100.0));
+		unlockProgress.managedProperty().bind(unlockProgress.visibleProperty());
+		unlockProgress.setVisible(false);
+		
 	}
 	
 	public void handleOnTouchPressUnlock(TouchEvent event) {
 
+		unlockProgress.setVisible(true);
 		System.out.println("unlock starting");
-		timeline.play();
+		timeline.playFrom(Duration.ZERO);
 
 		event.consume();
 	}
 	
 	public void handleOnTouchReleaseUnlock(TouchEvent event) {
 
-		System.out.println("unlock");
-		unlock.setVisible(false);
-		unlock.setManaged(true);
-		lockedProperty.set(false);
+		if(unlockProgress.getProgress() < 1) {
+			
+			timeline.stop();
+		} else {
+			System.out.println("unlock");
+			unlock.setVisible(false);
+			unlock.setManaged(true);
+			lockedProperty.set(false);
+		}
+		progressProperty.set(0);
+		unlockProgress.setVisible(false);
+		
 		event.consume();
 	}
 
