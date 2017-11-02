@@ -257,7 +257,7 @@ public class mainViewController {
 	 *****************************************************************/
 
 	public void handleOnScroll(ScrollEvent event) {
-		if(lockedProperty.getValue()) {
+		if(!lockedProperty.getValue()) {
 			MainCanvas rect = (MainCanvas) event.getSource();
 	
 			switch (event.getTouchCount()) {
@@ -290,10 +290,12 @@ public class mainViewController {
 	 *****************************************************************/
 
     public void handleOnZoom(ZoomEvent event) {
-        Zoom((MainCanvas) event.getSource(), event.getZoomFactor(), event.getZoomFactor());
-        System.out.println(event.getEventType().getName()+
-                ", inertia: " + event.isInertia() +
-                ", direct: " + event.isDirect());
+    	if(!lockedProperty.getValue()) {
+	        Zoom((MainCanvas) event.getSource(), event.getZoomFactor(), event.getZoomFactor());
+	        System.out.println(event.getEventType().getName()+
+	                ", inertia: " + event.isInertia() +
+	                ", direct: " + event.isDirect());
+    	}
         event.consume();
     }
 
