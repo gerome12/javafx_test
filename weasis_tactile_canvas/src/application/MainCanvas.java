@@ -22,6 +22,8 @@ public class MainCanvas extends Canvas{
 	private double contrasteX=1;
 	private double contrasteY=1;
 	
+	private ScrollController sc;
+	
 	public MainCanvas() {
 		image =null;
 		this.widthProperty().addListener(new ChangeListener<Number>() {
@@ -38,6 +40,10 @@ public class MainCanvas extends Canvas{
 		    	draw();
 		    }
 		});
+	}
+	
+	public void setScrollBar(ScrollController sc) {
+		this.sc = sc;
 	}
 	
 	public MainCanvas(String image) {
@@ -106,6 +112,7 @@ public class MainCanvas extends Canvas{
 		translateX=0;
 		translateY=0;
 		scroll=0;
+		sc.setValue(0);
 		contrasteX=1;
 		contrasteY=1;
 		draw();

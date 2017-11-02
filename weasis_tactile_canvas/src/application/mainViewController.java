@@ -126,6 +126,10 @@ public class mainViewController {
         pause.setOnFinished(this::pause);
 	}
 
+	public void setScrollBar(ScrollController sc) {
+		canvas.setScrollBar(sc);
+	}
+	
 	public void setParam(Scene scene) {
 		this.scene = scene;
 		

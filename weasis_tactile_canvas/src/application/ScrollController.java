@@ -61,8 +61,7 @@ public class ScrollController {
 
 		scrollBar.setVisible(false);
 	}
-
-
+	
 	public void setParam(Scene scene, mainViewController vc){
 
 		this.vc = vc;
@@ -88,6 +87,10 @@ public class ScrollController {
 	/*****************************************************************
 	 *                         SCROLL                                *
 	 *****************************************************************/
+	public void setValue(int val) {
+		scrollBar.setValue(val);
+	}
+	
 	private void scrollStart(ScrollEvent event) {
 		event.consume();
 	}

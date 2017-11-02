@@ -45,6 +45,7 @@ public class Main extends Application {
         Group scroll = (Group) loaderScroll.load();
         sc = (ScrollController) loaderScroll.getController();
         sc.setParam(scene, vc);
+        vc.setScrollBar(sc);
 
 //        root.setCenter(r);
         root.getChildren().add(r);
