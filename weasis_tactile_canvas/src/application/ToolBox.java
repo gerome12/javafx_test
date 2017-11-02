@@ -22,11 +22,7 @@ public class ToolBox {
 		}
 	}
 
-	public static void outTool() {
-		System.out.println("1 finger  = "+selectedToolOneFinger);
-		System.out.println("2 fingers = "+selectedToolTwoFingers);
-	}
-	
+
 	public static String getToolOneFinger() {
 		return selectedToolOneFinger;
 	}

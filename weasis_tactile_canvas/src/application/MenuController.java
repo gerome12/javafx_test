@@ -17,7 +17,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
@@ -28,14 +27,6 @@ public class MenuController {
 
 	@FXML
 	Group menuGroup;
-	@FXML
-	BorderPane translate_1;
-	@FXML
-	BorderPane contraste_1;
-	@FXML
-	BorderPane translate_2;
-	@FXML
-	BorderPane contraste_2;
 	@FXML
 	GridPane menu;
 	@FXML
@@ -70,35 +61,12 @@ public class MenuController {
 
 		menu.setVisible(false);
 
-		translate_1.setStyle("-fx-background-color:GAINSBORO");
-		translate_2.setStyle("-fx-background-color:GAINSBORO");
-
 		//DRAG
 		boutonPlus.setOnDragDetected(this::handleOnDragDetected);
 		boutonPlus.setOnDragDone(this::handleOnDragDone);
 
 
 		//DROP
-		translate_1.setOnDragOver(this::handleOnDragOver);
-		translate_1.setOnDragEntered(this::handleOnDragEntered);
-		translate_1.setOnDragExited(this::handleOnDragExited);
-		translate_1.setOnDragDropped(this::handleOnDragDropped);
-
-		contraste_1.setOnDragOver(this::handleOnDragOver);
-		contraste_1.setOnDragEntered(this::handleOnDragEntered);
-		contraste_1.setOnDragExited(this::handleOnDragExited);
-		contraste_1.setOnDragDropped(this::handleOnDragDropped);
-
-		translate_2.setOnDragOver(this::handleOnDragOver);
-		translate_2.setOnDragEntered(this::handleOnDragEntered);
-		translate_2.setOnDragExited(this::handleOnDragExited);
-		translate_2.setOnDragDropped(this::handleOnDragDropped);
-
-		contraste_2.setOnDragOver(this::handleOnDragOver);
-		contraste_2.setOnDragEntered(this::handleOnDragEntered);
-		contraste_2.setOnDragExited(this::handleOnDragExited);
-		contraste_2.setOnDragDropped(this::handleOnDragDropped);
-
 		exit.setOnDragOver(this::handleOnDragOver);
 		exit.setOnDragEntered(this::handleOnDragEntered);
 		exit.setOnDragExited(this::handleOnDragExited);
@@ -208,11 +176,9 @@ public class MenuController {
         	r.setStyle("-fx-background-color:none");
 		}
         rect.setStyle("-fx-background-color:GAINSBORO");
-        ToolBox.setTool(rect.getId());
 
         System.out.println(rect.getId());
         event.consume();
-        ToolBox.outTool();
 	}
 
 	public void handleOnDragDroppedExit(DragEvent event) {

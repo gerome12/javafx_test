@@ -254,30 +254,14 @@ public class mainViewController {
 
 		switch (event.getTouchCount()) {
 		case 2 :
-			switch (ToolBox.getToolTwoFinger()) {
-			case ToolBox.TRANSLATE:
-				Translate(rect, event.getDeltaX(), event.getDeltaY(), 2);
-				break;
-			case ToolBox.CONTRASTE:
-				Contraste(rect, event.getDeltaX(), event.getDeltaY(), 2);
-				break;
-			}
+			Translate(rect, event.getDeltaX(), event.getDeltaY(), 2);
 			break;
 		case 1 :
-			switch (ToolBox.getToolOneFinger()) {
-			case ToolBox.TRANSLATE:
-				Translate(rect, event.getDeltaX(), event.getDeltaY(), 1);
-				break;
-			case ToolBox.CONTRASTE:
-				Contraste(rect, event.getDeltaX(), event.getDeltaY(), 1);
-				break;
-			}
+			Contraste(rect, event.getDeltaX(), event.getDeltaY(), 1);
 			break;
 		}
-			System.out.println(event.getEventType().getName()+
-							", inertia: " + event.isInertia() +
-							", direct: " + event.isDirect());
-			
+			System.out.println(event.getEventType().getName()+", inertia: " 
+							 + event.isInertia() +", direct: " + event.isDirect());
 			event.consume();
 	}
 
