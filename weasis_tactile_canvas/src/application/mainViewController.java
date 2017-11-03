@@ -12,9 +12,7 @@ import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -25,7 +23,6 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -37,8 +34,6 @@ import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 
@@ -343,7 +338,7 @@ public class mainViewController {
 	 *****************************************************************/
 	private Boolean flagPelliculeShow = true;
 	
-	private final Duration UNLOCK_TIME = Duration.millis(250);
+	private final Duration HIDE_PELICULE_TIME = Duration.millis(250);
 	ParallelTransition pt;
 	
 	Timeline timeline;
@@ -354,16 +349,8 @@ public class mainViewController {
 	
 	private void initHideShow() {
 		pt = new ParallelTransition();
-		
-		rotateTransition = new RotateTransition(UNLOCK_TIME, closePelicule);
-    	rotateTransition.setFromAngle(0);
-    	rotateTransition.setToAngle(180);
-    	
+		rotateTransition = new RotateTransition(HIDE_PELICULE_TIME, closePelicule);
     	timeline = new Timeline();
-    	kv = new KeyValue(peliculeViewer.prefWidthProperty(), 0);
-    	kf = new KeyFrame(UNLOCK_TIME, kv);
-    	timeline.getKeyFrames().add(kf);
-    	
     	pt.getChildren().addAll(timeline,rotateTransition);
     	pt.setOnFinished(this::finishHidePellicule);
 	}
@@ -384,23 +371,38 @@ public class mainViewController {
     		
 	    	if(flagPelliculeShow) {
 	        	peliculeViewer.prefWidthProperty().unbind();
+	        	rotateTransition.setFromAngle(0);
+	        	rotateTransition.setToAngle(180);
+	        	kv = new KeyValue(peliculeViewer.prefWidthProperty(), 0);
+	        	kf = new KeyFrame(HIDE_PELICULE_TIME, kv);
+	        	timeline.getKeyFrames().clear();
+	        	timeline.getKeyFrames().add(kf);
 	        	pt.play();
 
 	    	} else {
-	    		peliculeViewer.prefWidthProperty().bind(scene.widthProperty().multiply(0.20));
-	    		closePelicule.setRotate(0);
-	    		mainHBox.getChildren().add(0, peliculeViewer);	
-	    		canvas.widthProperty().bind(scene.widthProperty().subtract(peliculeViewer.widthProperty()));
-	    		flagPelliculeShow=!flagPelliculeShow;
+	        	rotateTransition.setFromAngle(180);
+	        	rotateTransition.setToAngle(0);
+	        	kv = new KeyValue(peliculeViewer.prefWidthProperty(), scene.getWidth()*0.2);
+	        	kf = new KeyFrame(HIDE_PELICULE_TIME, kv);
+	        	timeline.getKeyFrames().clear();
+	        	timeline.getKeyFrames().add(kf);
+				mainHBox.getChildren().add(0, peliculeViewer);	
+	        	pt.play();
+	        	
 	    	}
     	}
     }
     
 	public void finishHidePellicule(ActionEvent event) {
-		closePelicule.setRotate(180);
-		mainHBox.getChildren().remove(peliculeViewer);
-		canvas.widthProperty().bind(scene.widthProperty());
-		flagPelliculeShow=!flagPelliculeShow;
+		if(flagPelliculeShow) {
+			mainHBox.getChildren().remove(peliculeViewer);
+			canvas.widthProperty().bind(scene.widthProperty());
+			flagPelliculeShow=!flagPelliculeShow;
+		} else {
+			peliculeViewer.prefWidthProperty().bind(scene.widthProperty().multiply(0.20));
+			canvas.widthProperty().bind(scene.widthProperty().subtract(peliculeViewer.widthProperty()));
+			flagPelliculeShow=!flagPelliculeShow;
+		}
 		event.consume();
 	}
 
