@@ -37,7 +37,9 @@ import javafx.util.Duration;
 
 public class mainViewController {
 
-
+	private Scene scene;
+	BooleanProperty lockedProperty = new SimpleBooleanProperty(false);
+	
 	@FXML
 	ScrollPane peliculeViewer;
 	@FXML
@@ -51,12 +53,6 @@ public class mainViewController {
 	@FXML
 	MainCanvas canvas;
 	
-	private Scene scene;
-	BooleanProperty lockedProperty = new SimpleBooleanProperty(false);
-
-
-
-
 	@FXML
 	public void initialize() {
 				
@@ -79,6 +75,7 @@ public class mainViewController {
 
 		closePelicule.setOnTouchReleased(this::handleOnTouchRelease);
 		closePelicule.setOnMouseClicked(this::handleOnMouseClicked);
+		
 
 
         peliculeViewer.widthProperty().addListener(new ChangeListener<Object>() {
@@ -141,14 +138,12 @@ public class mainViewController {
     	canvas.widthProperty().bind(scene.widthProperty().subtract(peliculeViewer.widthProperty()));
     	canvas.heightProperty().bind(scene.heightProperty());
     	
-        scene.widthProperty().addListener(new ChangeListener<Object>() {
+    	
+//        closePelicule.layoutXProperty().bind(canvas.layoutXProperty());
+        canvas.layoutXProperty().addListener(new ChangeListener<Object>() {
         	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {
         		
-        		if(mainHBox.getChildren().size() == 1) {
-        			closePelicule.setLayoutX(0);
-        		} else {
-        			closePelicule.setLayoutX(peliculeViewer.getWidth());
-        		}       		
+        			closePelicule.setLayoutX((double) newVal);	
         	}
 		});
 	}
@@ -338,6 +333,8 @@ public class mainViewController {
     /*****************************************************************
 	 *                         HIDE                                  *
 	 *****************************************************************/
+	private Boolean flagPelliculeShow = true;
+	
     public void handleOnTouchRelease(TouchEvent event){
     	hidePellicule();
     }
@@ -349,24 +346,18 @@ public class mainViewController {
     private void hidePellicule() {
     	
     	if(!lockedProperty.getValue()) {
-	    	if(peliculeViewer.isVisible()) {
-	    		closePelicule.setRotate(180);
-
-	    		mainHBox.getChildren().remove(peliculeViewer);
-	    		closePelicule.setLayoutX(0);
-	    		peliculeViewer.setVisible(false);
-	    		
-	    		canvas.widthProperty().unbind();
-	    		canvas.widthProperty().bind(scene.widthProperty());
-	    	} else {
-	    		closePelicule.setLayoutX(scene.getWidth()*0.2);
-	    		closePelicule.setRotate(0);
-	    		mainHBox.getChildren().add(0, peliculeViewer);
+    		canvas.widthProperty().unbind();
     		
-	    		peliculeViewer.setVisible(true);
-	    		
-	    		canvas.widthProperty().unbind();
+	    	if(flagPelliculeShow) {
+	    		closePelicule.setRotate(180);
+	    		mainHBox.getChildren().remove(peliculeViewer);
+	    		canvas.widthProperty().bind(scene.widthProperty());
+	    		flagPelliculeShow=!flagPelliculeShow;
+	    	} else {
+	    		closePelicule.setRotate(0);
+	    		mainHBox.getChildren().add(0, peliculeViewer);	
 	    		canvas.widthProperty().bind(scene.widthProperty().subtract(peliculeViewer.widthProperty()));
+	    		flagPelliculeShow=!flagPelliculeShow;
 	    	}
     	}
     }

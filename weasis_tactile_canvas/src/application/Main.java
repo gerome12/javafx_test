@@ -19,8 +19,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		primaryStage.setTitle("ClassTest");
-//        BorderPane root = new BorderPane();
+		primaryStage.setTitle("Weasis Tactile =)");
 		AnchorPane root= new AnchorPane();
         Scene scene = new Scene(root, 900, 500, Color.WHITE);
 

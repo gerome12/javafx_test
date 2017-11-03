@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.SVGPath?>
 
-<Group fx:id="menuGroup" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
+<Group fx:id="menuGroup" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
    <children>
       <BorderPane fx:id="boutonPlus" layoutX="244.0" layoutY="175.0" prefHeight="70.0" prefWidth="70.0">
          <center>
