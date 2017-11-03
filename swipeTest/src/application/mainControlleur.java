@@ -37,6 +37,7 @@ public class mainControlleur {
 		
 		x=(x+event.getTouchPoint().getX())/2;
 		y=(y+event.getTouchPoint().getY())/2;
-		System.out.println("Touch position : "+x+" "+y);
+		System.out.println("Touch position (moyenne): "+x+" "+y);
+		System.out.println("Touch position (x2): "+2*x+" "+2*y);
 	}
 }
