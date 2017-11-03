@@ -28,6 +28,7 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
@@ -42,9 +43,7 @@ public class mainViewController {
 	@FXML
 	VBox peliculeContener;
 	@FXML
-	SplitPane splitPane;
-//	@FXML
-//	AnchorPane destination;
+	HBox mainHBox;
 	@FXML
 	AnchorPane mainPane;
 	@FXML
@@ -60,9 +59,9 @@ public class mainViewController {
 
 	@FXML
 	public void initialize() {
-		
+				
 		canvas = new MainCanvas();
-		splitPane.getItems().add(1,canvas);
+		mainHBox.getChildren().add(1,canvas);
 		System.out.println("**INFO**  initialize mainView ");
 
 		for (int i = 1; i <= 5; i++) {
@@ -82,19 +81,9 @@ public class mainViewController {
 		closePelicule.setOnMouseClicked(this::handleOnMouseClicked);
 
 
-
-		peliculeViewer.maxWidthProperty().bind(splitPane.widthProperty().multiply(0.25));
-		peliculeViewer.minWidthProperty().bind(splitPane.widthProperty().multiply(0.10));
-//		closePelicule.layoutXProperty().bind(peliculeViewer.widthProperty()); // fonctionne pas =(
-
-
-
-
         peliculeViewer.widthProperty().addListener(new ChangeListener<Object>() {
         	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {
 
-
-        		closePelicule.setLayoutX((double)newVal);
 
         		//Obtenir la taille en pixel de la scroll bar vertical
         		double sbWidth = 0;
@@ -116,10 +105,10 @@ public class mainViewController {
            				PeliculeCanvas pc = (PeliculeCanvas)iterable_element;
         				pc.setHeight((double)newVal - peliculeContener.getPadding().getLeft()
         						                    - peliculeContener.getPadding().getRight()
-        						                    - sbWidth);
+        						                    - sbWidth - 2);
         				pc.setWidth((double)newVal - peliculeContener.getPadding().getLeft()
         						                   - peliculeContener.getPadding().getRight()
-        						                   - sbWidth);
+        						                   - sbWidth - 2);//-2 permet de supprimer la scroll bar Horizontal
         				pc.Draw();
         			}
 				}
@@ -136,9 +125,12 @@ public class mainViewController {
 	public void setParam(Scene scene) {
 		this.scene = scene;
 		
-		splitPane.prefHeightProperty().bind(scene.heightProperty());
-		splitPane.prefWidthProperty().bind(scene.widthProperty());
-    	splitPane.setDividerPosition(0, 0.1);
+		peliculeViewer.maxWidthProperty().bind(scene.widthProperty().multiply(0.20));
+		peliculeViewer.minWidthProperty().bind(scene.widthProperty().multiply(0.20));
+		peliculeViewer.prefWidthProperty().bind(scene.widthProperty().multiply(0.20));
+		
+		mainHBox.prefHeightProperty().bind(scene.heightProperty());
+		mainHBox.prefWidthProperty().bind(scene.widthProperty());
     	
     	peliculeViewer.prefHeightProperty().bind(scene.heightProperty());
     	peliculeContener.prefHeightProperty().bind(scene.heightProperty());
@@ -146,27 +138,19 @@ public class mainViewController {
     	mainPane.prefHeightProperty().bind(scene.heightProperty());
     	mainPane.prefHeightProperty().bind(scene.heightProperty());
     	
-//    	destination.prefHeightProperty().bind(scene.heightProperty());
-
-		scene.heightProperty().addListener(new ChangeListener<Number>() {
-		    @Override
-		    public void changed(ObservableValue<? extends Number> observable,
-		            Number oldValue, Number newValue) {
-		    	canvas.setHeight(scene.getHeight());
-		    	resizeCanvas();
-//		    	destination.setLayoutX(200);
-//		    	destination.setPrefWidth(value);
-		    }
-		});
-		
-		scene.widthProperty().addListener(new ChangeListener<Number>() {
-		    @Override
-		    public void changed(ObservableValue<? extends Number> observable,
-		            Number oldValue, Number newValue) {
-		    	resizeCanvas();
-		    }
-		});
+    	canvas.widthProperty().bind(scene.widthProperty().subtract(peliculeViewer.widthProperty()));
+    	canvas.heightProperty().bind(scene.heightProperty());
     	
+        scene.widthProperty().addListener(new ChangeListener<Object>() {
+        	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {
+        		
+        		if(mainHBox.getChildren().size() == 1) {
+        			closePelicule.setLayoutX(0);
+        		} else {
+        			closePelicule.setLayoutX(peliculeViewer.getWidth());
+        		}       		
+        	}
+		});
 	}
 
 	/*****************************************************************
@@ -306,43 +290,6 @@ public class mainViewController {
 	 *                         TOUCH                                  *
 	 *****************************************************************/
     
-    
-//	private double startTime;
-//	private double timeFirstTouch;
-//	private double[] tabTimeTouch;
-//
-//	private void handleTouchPress(TouchEvent event) {
-//	startTime = System.currentTimeMillis();
-//	
-//
-//	event.consume();
-//
-//}
-//
-//private void handleTouchRelease(TouchEvent event) {
-//	if(System.currentTimeMillis() - startTime < 300){
-//
-//		if(System.currentTimeMillis() - timeFirstTouch < 300) {
-//			System.out.println("double");
-//			switch(event.getTouchCount())
-//			{
-//			case 1 : 
-//				canvas.zoom(2, 2);
-//				break;
-//			case 2 : 
-//				canvas.zoom(0.5, 0.5);
-//				break;
-//			}
-//		}
-//		else
-//		{
-//			System.out.println("simple");
-//			timeFirstTouch = System.currentTimeMillis();
-//		}
-//	}
-//	event.consume();
-//}
-    
     private static ArrayList<String> doubleTab2Fingers = new ArrayList<String>(Arrays.asList("press","press","release","release","press","press","release","release"));
     private static ArrayList<String> doubleTab3Fingers = new ArrayList<String>(Arrays.asList("press","press","press","release","release","release","press","press","press","release","release","release"));
     private static ArrayList<String> doubleTab1Finger = new ArrayList<String>(Arrays.asList("press","release","press","release"));
@@ -395,31 +342,32 @@ public class mainViewController {
     	hidePellicule();
     }
     public void handleOnMouseClicked(MouseEvent event){
-    	hidePellicule();
+    	//hidePellicule();
     }
 
-    private Double dividerPositions;
-    private Double closePeliculePosition;
+
     private void hidePellicule() {
     	
     	if(!lockedProperty.getValue()) {
-	    	
 	    	if(peliculeViewer.isVisible()) {
 	    		closePelicule.setRotate(180);
-	    		closePeliculePosition = closePelicule.getLayoutX();
-	    		dividerPositions = splitPane.getDividerPositions()[0];
-	    		splitPane.getItems().remove(peliculeViewer);
+
+	    		mainHBox.getChildren().remove(peliculeViewer);
 	    		closePelicule.setLayoutX(0);
 	    		peliculeViewer.setVisible(false);
-	    	} else{
-	    		closePelicule.setLayoutX(closePeliculePosition);
+	    		
+	    		canvas.widthProperty().unbind();
+	    		canvas.widthProperty().bind(scene.widthProperty());
+	    	} else {
+	    		closePelicule.setLayoutX(scene.getWidth()*0.2);
 	    		closePelicule.setRotate(0);
-	    		splitPane.getItems().add(0, peliculeViewer);
-	    		splitPane.setDividerPosition(0, dividerPositions);
+	    		mainHBox.getChildren().add(0, peliculeViewer);
+    		
 	    		peliculeViewer.setVisible(true);
+	    		
+	    		canvas.widthProperty().unbind();
+	    		canvas.widthProperty().bind(scene.widthProperty().subtract(peliculeViewer.widthProperty()));
 	    	}
-	    	
-	    	resizeCanvas();
     	}
     }
 
@@ -449,26 +397,4 @@ public class mainViewController {
     public void setStrock(double s) {
     	canvas.scroll(s);
     }
-    
-    
-    
-    
-    public void resizeCanvas() {
-    	int l  = splitPane.getDividerPositions().length;
-    	if(l==0) {
-    		canvas.setWidth(scene.getWidth());
-    	} else if(l==1) {
-    		canvas.setWidth(scene.getWidth()*(1-splitPane.getDividerPositions()[0]));
-    	}
-    	
-//    	GraphicsContext gc = canvas.getGraphicsContext2D();
-//    	gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        gc.setFill(Color.YELLOW);
-//        gc.setStroke(Color.YELLOW);
-//        gc.fillOval(0, 0, 20, 20);
-//        gc.fillOval(canvas.getWidth()-20, 0, 20, 20);
-//        gc.fillOval(0, canvas.getHeight()-20, 20, 20);
-//        gc.fillOval(canvas.getWidth()-20, canvas.getHeight()-20, 20, 20);
-    }
-
 }
