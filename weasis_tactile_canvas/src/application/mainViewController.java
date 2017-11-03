@@ -373,8 +373,7 @@ public class mainViewController {
     	event.consume();
     }
     public void handleOnMouseClicked(MouseEvent event){
-    	hidePellicule();
-
+//    	hidePellicule();
     	event.consume();
     }
 
