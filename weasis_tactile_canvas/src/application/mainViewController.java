@@ -5,9 +5,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
 import javafx.animation.PauseTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -30,6 +37,8 @@ import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 
@@ -113,6 +122,7 @@ public class mainViewController {
 		});
         
         pause.setOnFinished(this::pause);
+        initHideShow();
 	}
 
 	public void setScrollBar(ScrollController sc) {
@@ -122,8 +132,6 @@ public class mainViewController {
 	public void setParam(Scene scene) {
 		this.scene = scene;
 		
-		peliculeViewer.maxWidthProperty().bind(scene.widthProperty().multiply(0.20));
-		peliculeViewer.minWidthProperty().bind(scene.widthProperty().multiply(0.20));
 		peliculeViewer.prefWidthProperty().bind(scene.widthProperty().multiply(0.20));
 		
 		mainHBox.prefHeightProperty().bind(scene.heightProperty());
@@ -335,25 +343,52 @@ public class mainViewController {
 	 *****************************************************************/
 	private Boolean flagPelliculeShow = true;
 	
+	private final Duration UNLOCK_TIME = Duration.millis(250);
+	ParallelTransition pt;
+	
+	Timeline timeline;
+	KeyValue kv;
+	KeyFrame kf;
+	
+	RotateTransition rotateTransition;
+	
+	private void initHideShow() {
+		pt = new ParallelTransition();
+		
+		rotateTransition = new RotateTransition(UNLOCK_TIME, closePelicule);
+    	rotateTransition.setFromAngle(0);
+    	rotateTransition.setToAngle(180);
+    	
+    	timeline = new Timeline();
+    	kv = new KeyValue(peliculeViewer.prefWidthProperty(), 0);
+    	kf = new KeyFrame(UNLOCK_TIME, kv);
+    	timeline.getKeyFrames().add(kf);
+    	
+    	pt.getChildren().addAll(timeline,rotateTransition);
+    	pt.setOnFinished(this::finishHidePellicule);
+	}
+	
     public void handleOnTouchRelease(TouchEvent event){
     	hidePellicule();
+    	event.consume();
     }
     public void handleOnMouseClicked(MouseEvent event){
-    	//hidePellicule();
+    	hidePellicule();
+
+    	event.consume();
     }
 
 
     private void hidePellicule() {
     	
     	if(!lockedProperty.getValue()) {
-    		canvas.widthProperty().unbind();
     		
 	    	if(flagPelliculeShow) {
-	    		closePelicule.setRotate(180);
-	    		mainHBox.getChildren().remove(peliculeViewer);
-	    		canvas.widthProperty().bind(scene.widthProperty());
-	    		flagPelliculeShow=!flagPelliculeShow;
+	        	peliculeViewer.prefWidthProperty().unbind();
+	        	pt.play();
+
 	    	} else {
+	    		peliculeViewer.prefWidthProperty().bind(scene.widthProperty().multiply(0.20));
 	    		closePelicule.setRotate(0);
 	    		mainHBox.getChildren().add(0, peliculeViewer);	
 	    		canvas.widthProperty().bind(scene.widthProperty().subtract(peliculeViewer.widthProperty()));
@@ -361,13 +396,14 @@ public class mainViewController {
 	    	}
     	}
     }
-
-	//*************** FadeTransition
-	public void handleFadeTransitionEnd(ActionEvent event) {
-
+    
+	public void finishHidePellicule(ActionEvent event) {
+		closePelicule.setRotate(180);
+		mainHBox.getChildren().remove(peliculeViewer);
+		canvas.widthProperty().bind(scene.widthProperty());
+		flagPelliculeShow=!flagPelliculeShow;
 		event.consume();
 	}
-
 
     /*****************************************************************
 	 *                     IMAGE MANIPULATION                        *

@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainViewController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainViewController">
    <children>
       <HBox fx:id="mainHBox" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ScrollPane fx:id="peliculeViewer" fitToHeight="true" fitToWidth="true">
+            <ScrollPane fx:id="peliculeViewer" fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                <content>
                   <VBox fx:id="peliculeContener" alignment="TOP_CENTER" spacing="20.0">
                      <opaqueInsets>
