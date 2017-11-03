@@ -1,5 +1,5 @@
 //visualitation de touch event
-//...ljklkjélkjélkj
+//...ljklkjélkjélkjkélkélkélélkél
 //et la depuis un autre pc
 
 import javafx.animation.KeyFrame;
