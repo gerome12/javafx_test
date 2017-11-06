@@ -78,9 +78,16 @@ public class MainCanvas extends Canvas{
 			this.getGraphicsContext2D().strokeRect(translateX+scroll/2, translateY+scroll/2, this.getWidth()*zoomFacteurX-scroll,this.getHeight()*zoomFacteurY-scroll);
 	}
 	
-	public void zoom(double zoomFacteurX, double zoomFacteurY) {
+	public void zoom(double zoomFacteurX, double zoomFacteurY,double x,double y) {
+		Double actualPosXfromOrigine = (translateX - x) - ((translateX - x)*zoomFacteurX) ;
+		Double actualPosYfromOrigine = (translateY - y) - ((translateY - y)*zoomFacteurY);
+		
+		
+		
 		this.zoomFacteurX *=zoomFacteurX;
 		this.zoomFacteurY *=zoomFacteurY;
+		this.translateX += actualPosXfromOrigine;
+		this.translateY += actualPosYfromOrigine; 
 		draw();
 	}
 	public void translate(double x,double y) {
