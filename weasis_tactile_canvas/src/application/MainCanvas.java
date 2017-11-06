@@ -80,10 +80,19 @@ public class MainCanvas extends Canvas{
 	}
 	
 	public void zoom(double zoomFactor,double x,double y) {
-		if(this.zoomFactor >= 1 || zoomFactor >= 1) {
+		if(this.zoomFactor >= 0.75 ) {
 			this.zoomFactor *=zoomFactor;
 			this.translateX += ((translateX - x)*zoomFactor) - (translateX - x);
 			this.translateY += ((translateY - y)*zoomFactor) - (translateY - y); 
+		}
+		draw();
+	}
+	
+	public void zoomEnd() {
+		if(this.zoomFactor < 1) {
+			this.zoomFactor =1;
+			this.translateX = 0;
+			this.translateY = 0; 
 		}
 		draw();
 	}

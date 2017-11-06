@@ -63,7 +63,7 @@ public class ScrollController {
 
 		pause.setOnFinished(e->ftHide.playFromStart());
 
-		ftHide.playFrom(Duration.millis(999));
+		ftHide.playFrom(Duration.millis(1000));
 	}
 	
 	public void setParam(Scene scene, mainViewController vc){

@@ -280,7 +280,10 @@ public class mainViewController {
     }
 
     public void handleOnZoomFinished(ZoomEvent event) {
-        event.consume();
+       	if(!lockedProperty.getValue()) {
+	        ZoomEnd();
+    	}
+    	event.consume();
     }
     
     
@@ -417,7 +420,11 @@ public class mainViewController {
     private void Zoom(MainCanvas c, double delta, double x, double y) {
         c.zoom(delta, x , y);
     }
-
+ 
+    public void ZoomEnd() {
+    	canvas.zoomEnd();
+    }
+    
     private void Translate(MainCanvas c, double deltaX, double deltaY, int NbFinger) {
     	c.translate(deltaX, deltaY);
     }
@@ -429,4 +436,8 @@ public class mainViewController {
     public void setStrock(double s) {
     	canvas.scroll(s);
     }
+    
+
+    
+    
 }
