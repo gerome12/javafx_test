@@ -47,7 +47,6 @@ public class ScrollController {
         scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
             	vc.setStrock((double)new_val);
-                System.out.println("scrollBar : "+(int)scrollBar.getValue());
             }
         });
 
@@ -145,20 +144,18 @@ public class ScrollController {
 			if(System.currentTimeMillis() - startTime < 300){
 				pause.playFromStart();
 				if(System.currentTimeMillis() - timeFirstTouch < 300) {
-					System.out.println("double");
+					System.out.println("scrollBar double");
 					scrollBar.setValue((event.getTouchPoint().getY()*scrollBar.getMax()) / zoneScrollVirtual_.getHeight());
 				}
 				else
 				{
-					System.out.println("simple");
+					System.out.println("scrollBar simple");
 					timeFirstTouch = System.currentTimeMillis();
-					Double posY = event.getTouchPoint().getY();
-					Double posScroll = (scrollBar.getValue() * zoneScrollVirtual_.getHeight()) / scrollBar.getMax();
-					if(posY < posScroll)
+		
+					if(event.getTouchPoint().getY() < zoneScrollVirtual_.getHeight() / 2)
 						scrollBar.setValue(scrollBar.getValue()-1);
 					else
 						scrollBar.setValue(scrollBar.getValue()+1);
-	
 				}
 			}
 		}

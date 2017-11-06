@@ -1,7 +1,6 @@
 package application;
 
-import java.util.concurrent.FutureTask;
-
+import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
@@ -47,6 +46,14 @@ public class MainCanvas extends Canvas{
 		    	draw();
 		    }
 		});
+		
+		this.zoomFactorProperty.addListener(new ChangeListener<Number>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Number> observable,
+		            Number oldValue, Number newValue) {
+		    	draw();
+		    }
+		});
 		initTimeLine();
 	}
 		
@@ -75,6 +82,17 @@ public class MainCanvas extends Canvas{
 	}
 	
 	public void draw() {
+
+		translateX = (translateX > this.getWidth() / 2) ?  this.getWidth() / 2 : translateX;
+		translateY = (translateY > this.getHeight() / 2) ?  this.getHeight() / 2 : translateY;
+		
+		translateX = translateX < -this.getWidth() * zoomFactorProperty.get() + (this.getWidth() / 2) ?  -this.getWidth() * zoomFactorProperty.get() + (this.getWidth() / 2) : translateX;
+		translateY = translateY < -this.getHeight() * zoomFactorProperty.get() + (this.getHeight() / 2) ?  -this.getHeight() * zoomFactorProperty.get() + (this.getHeight() / 2) : translateY;
+		
+
+			
+			
+		
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		this.getGraphicsContext2D().setGlobalAlpha(contrasteX);
 		
@@ -86,7 +104,7 @@ public class MainCanvas extends Canvas{
 	}
 	
 	public void zoom(double zoomFactor,double x,double y) {
-		if(this.zoomFactorProperty.get() >= 0.75 ) {
+		if(this.zoomFactorProperty.get() >= 0.75  || zoomFactor > 1) {
 			this.zoomFactorProperty.set(zoomFactor * this.zoomFactorProperty.get());
 			this.translateX += ((translateX - x)*zoomFactor) - (translateX - x);
 			this.translateY += ((translateY - y)*zoomFactor) - (translateY - y); 
@@ -96,7 +114,8 @@ public class MainCanvas extends Canvas{
 	
 	public void zoomEnd() {
 		if(this.zoomFactorProperty.get() < 1) {
-			parallelTransition.playFromStart();
+			//parallelTransition.playFromStart();
+			zoomFactorProperty.set(1);
 			this.translateX = 0;
 			this.translateY = 0; 
 		}

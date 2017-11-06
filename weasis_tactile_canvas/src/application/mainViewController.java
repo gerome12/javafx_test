@@ -191,7 +191,6 @@ public class mainViewController {
 
 	public void handleOnDragOver(DragEvent event) {
 		/* data is dragged over the target */
-		System.out.println(event.getEventType().getName());
 		event.acceptTransferModes(TransferMode.COPY);
 		event.consume();
 	}
@@ -301,7 +300,6 @@ public class mainViewController {
     
     
 	private void handleTouchPress(TouchEvent event) {
-		System.out.println("TOUCH IN MAIN VIEW CONTROLLER");
 		if(!lockedProperty.getValue()) {
 			pause.stop();
 			touchevent.add("press");
@@ -327,15 +325,16 @@ public class mainViewController {
 		if(touchevent.equals(doubleTab2Fingers)) {
 			System.out.println("doubletap2fingers");
 			canvas.zoom(0.5, x, y);
+			canvas.zoomEnd();
 		}else if (touchevent.equals(doubleTab1Finger)) {
 			System.out.println("doubletap1finger");
-			canvas.zoom(2, x, y);			
+			canvas.zoom(2, x, y);	
+			canvas.zoomEnd();
 		}
 		else if (touchevent.equals(doubleTab3Fingers)) {
+			System.out.println("doubleTab3Fingers");
 			canvas.reset();
 		}
-		
-		System.out.println("pause");
 		touchevent.clear();
 	}
     
