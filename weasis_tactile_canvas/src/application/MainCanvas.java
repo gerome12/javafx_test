@@ -1,5 +1,7 @@
 package application;
 
+import java.util.concurrent.FutureTask;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.canvas.Canvas;
@@ -11,8 +13,7 @@ public class MainCanvas extends Canvas{
 	private Image image;
 	public String imageName;
 	
-	private double zoomFacteurX=1;
-	private double zoomFacteurY=1;
+	private double zoomFactor=1;
 	private double translateX=0;
 	private double translateY=0;
 	private double scroll=0;
@@ -71,23 +72,19 @@ public class MainCanvas extends Canvas{
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		this.getGraphicsContext2D().setGlobalAlpha(contrasteX);
 		
-		this.getGraphicsContext2D().drawImage(image, translateX, translateY, this.getWidth()*zoomFacteurX,this.getHeight()*zoomFacteurY);
+		this.getGraphicsContext2D().drawImage(image, translateX, translateY, this.getWidth()*zoomFactor,this.getHeight()*zoomFactor);
 		this.getGraphicsContext2D().setStroke(Color.RED);
 		this.getGraphicsContext2D().setLineWidth(scroll);
 		if(scroll!=0)
-			this.getGraphicsContext2D().strokeRect(translateX+scroll/2, translateY+scroll/2, this.getWidth()*zoomFacteurX-scroll,this.getHeight()*zoomFacteurY-scroll);
+			this.getGraphicsContext2D().strokeRect(translateX+scroll/2, translateY+scroll/2, this.getWidth()*zoomFactor-scroll,this.getHeight()*zoomFactor-scroll);
 	}
 	
-	public void zoom(double zoomFacteurX, double zoomFacteurY,double x,double y) {
-		Double actualPosXfromOrigine = (translateX - x) - ((translateX - x)*zoomFacteurX) ;
-		Double actualPosYfromOrigine = (translateY - y) - ((translateY - y)*zoomFacteurY);
-		
-		
-		
-		this.zoomFacteurX *=zoomFacteurX;
-		this.zoomFacteurY *=zoomFacteurY;
-		this.translateX += actualPosXfromOrigine;
-		this.translateY += actualPosYfromOrigine; 
+	public void zoom(double zoomFactor,double x,double y) {
+		if(this.zoomFactor >= 1 || zoomFactor >= 1) {
+			this.zoomFactor *=zoomFactor;
+			this.translateX += ((translateX - x)*zoomFactor) - (translateX - x);
+			this.translateY += ((translateY - y)*zoomFactor) - (translateY - y); 
+		}
 		draw();
 	}
 	public void translate(double x,double y) {
@@ -111,8 +108,7 @@ public class MainCanvas extends Canvas{
 	}
 	
 	public void reset() {
-		zoomFacteurX=1;
-		zoomFacteurY=1;
+		zoomFactor=1;
 		translateX=0;
 		translateY=0;
 		scroll=0;

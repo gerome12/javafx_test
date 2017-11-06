@@ -270,7 +270,7 @@ public class mainViewController {
 
     public void handleOnZoom(ZoomEvent event) {
     	if(!lockedProperty.getValue()) {
-	        Zoom((MainCanvas) event.getSource(), event.getZoomFactor(), event.getZoomFactor(), event.getX(), event.getY());
+	        Zoom((MainCanvas) event.getSource(), event.getZoomFactor(), event.getX(), event.getY());
     	}
         event.consume();
     }
@@ -323,10 +323,10 @@ public class mainViewController {
 	private void pause(ActionEvent e) {
 		if(touchevent.equals(doubleTab2Fingers)) {
 			System.out.println("doubletap2fingers");
-			canvas.zoom(0.5, 0.5, x, y);
+			canvas.zoom(0.5, x, y);
 		}else if (touchevent.equals(doubleTab1Finger)) {
 			System.out.println("doubletap1finger");
-			canvas.zoom(2, 2, x, y);			
+			canvas.zoom(2, x, y);			
 		}
 		else if (touchevent.equals(doubleTab3Fingers)) {
 			canvas.reset();
@@ -414,8 +414,8 @@ public class mainViewController {
 	 *                     IMAGE MANIPULATION                        *
 	 *****************************************************************/
 
-    private void Zoom(MainCanvas c, double deltaX, double deltaY, double x, double y) {
-        c.zoom(deltaX,  deltaY, x , y);
+    private void Zoom(MainCanvas c, double delta, double x, double y) {
+        c.zoom(delta, x , y);
     }
 
     private void Translate(MainCanvas c, double deltaX, double deltaY, int NbFinger) {
