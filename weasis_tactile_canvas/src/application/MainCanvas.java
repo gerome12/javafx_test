@@ -86,8 +86,8 @@ public class MainCanvas extends Canvas{
 		
 		this.zoomFacteurX *=zoomFacteurX;
 		this.zoomFacteurY *=zoomFacteurY;
-		this.translateX += actualPosXfromOrigine;
-		this.translateY += actualPosYfromOrigine; 
+//		this.translateX += actualPosXfromOrigine;
+//		this.translateY += actualPosYfromOrigine; 
 		draw();
 	}
 	public void translate(double x,double y) {

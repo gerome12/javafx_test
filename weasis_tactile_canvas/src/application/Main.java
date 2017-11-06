@@ -19,7 +19,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		primaryStage.setTitle("Weasis Tactile =)");
+		primaryStage.setTitle("Weasis Tactile canvas");
 		AnchorPane root= new AnchorPane();
         Scene scene = new Scene(root, 900, 500, Color.WHITE);
 
