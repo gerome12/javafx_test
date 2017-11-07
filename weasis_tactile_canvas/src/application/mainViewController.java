@@ -237,28 +237,40 @@ public class mainViewController {
 	/*****************************************************************
 	 *                         SCROLL                                *
 	 *****************************************************************/
-
+	private Integer mode = 0;
 	public void handleOnScroll(ScrollEvent event) {
 		if(!lockedProperty.getValue()) {
-			MainCanvas rect = (MainCanvas) event.getSource();
 	
 			switch (event.getTouchCount()) {
 			case 2 :
-				Translate(rect, event.getDeltaX(), event.getDeltaY(), 2);
+				mode = 2;
+				Translate(event.getDeltaX(), event.getDeltaY());
 				break;
 			case 1 :
-				Contraste(rect, event.getDeltaX(), event.getDeltaY(), 1);
+				
+				if (mode == 0 || mode == 1) {
+					System.out.println("contrast");
+					Contraste(event.getDeltaX(), event.getDeltaY());
+				}
+						
 				break;
 			}
 		}
-			event.consume();
+		event.consume();
 	}
 
 	public void handleOnScrollStart(ScrollEvent event) {
 		event.consume();
+		if(event.getTouchCount() > 2) {
+			mode = 3;
+		}
+		event.consume();
 	}
 
 	public void handleOnScrollEnd(ScrollEvent event) {
+		if(event.getTouchCount() == 0) {
+			mode = 0;
+		}
 		event.consume();
 	}
 
@@ -269,7 +281,9 @@ public class mainViewController {
 
     public void handleOnZoom(ZoomEvent event) {
     	if(!lockedProperty.getValue()) {
-	        Zoom((MainCanvas) event.getSource(), event.getZoomFactor(), event.getX(), event.getY());
+    		if(mode == 2) {
+    			Zoom(event.getZoomFactor(), event.getX(), event.getY());
+    		}
     	}
         event.consume();
     }
@@ -393,6 +407,7 @@ public class mainViewController {
 	        	timeline.getKeyFrames().clear();
 	        	timeline.getKeyFrames().add(kf);
 				mainHBox.getChildren().add(0, peliculeViewer);	
+				canvas.widthProperty().bind(scene.widthProperty().subtract(peliculeViewer.widthProperty()));
 	        	pt.play();
 	        	
 	    	}
@@ -406,7 +421,6 @@ public class mainViewController {
 			flagPelliculeShow=!flagPelliculeShow;
 		} else {
 			peliculeViewer.prefWidthProperty().bind(scene.widthProperty().multiply(0.20));
-			canvas.widthProperty().bind(scene.widthProperty().subtract(peliculeViewer.widthProperty()));
 			flagPelliculeShow=!flagPelliculeShow;
 		}
 		event.consume();
@@ -416,20 +430,20 @@ public class mainViewController {
 	 *                     IMAGE MANIPULATION                        *
 	 *****************************************************************/
 
-    private void Zoom(MainCanvas c, double delta, double x, double y) {
-        c.zoom(delta, x , y);
+    private void Zoom(double delta, double x, double y) {
+    	canvas.zoom(delta, x , y);
     }
  
     public void ZoomEnd() {
     	canvas.zoomEnd();
     }
     
-    private void Translate(MainCanvas c, double deltaX, double deltaY, int NbFinger) {
-    	c.translate(deltaX, deltaY);
+    private void Translate(double deltaX, double deltaY) {
+    	canvas.translate(deltaX, deltaY);
     }
 
-    private void Contraste(MainCanvas c, double x, double y, int NbFinger) {
-    	c.contraste(x, y);
+    private void Contraste(double x, double y) {
+    	canvas.contraste(x, y);
     }
 
     public void setStrock(double s) {

@@ -57,8 +57,10 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setFullScreen(true);
-        primaryStage.setFullScreen(false);
+//        primaryStage.setFullScreen(true);
+//        primaryStage.setFullScreen(false);
+        primaryStage.setHeight(500);
+        primaryStage.setWidth(900);
 
 	}
 

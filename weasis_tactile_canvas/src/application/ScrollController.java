@@ -125,37 +125,43 @@ public class ScrollController {
 	 *****************************************************************/
 	private double startTime;
 	private double timeFirstTouch;
+	private Integer TouchID;
 	private void touchPress(TouchEvent event) {
-		if(!lockedProperty.getValue()) {
-			startTime = System.currentTimeMillis();
-			ftHide.stop();
-			if(!scrollBar.isVisible())
-				ftShow.playFromStart();
-			else {
-				ftShow.jumpTo(Duration.millis(200));
-				ftShow.play();
+		if(event.getTouchCount() == 1) {
+			if(!lockedProperty.getValue()) {
+				TouchID = event.getTouchPoint().getId();
+				startTime = System.currentTimeMillis();
+				ftHide.stop();
+				if(!scrollBar.isVisible())
+					ftShow.playFromStart();
+				else {
+					ftShow.jumpTo(Duration.millis(200));
+					ftShow.play();
+				}
 			}
 		}
 		event.consume();
 	}
 
 	private void touchRelease(TouchEvent event) {
-		if(!lockedProperty.getValue()) {
-			if(System.currentTimeMillis() - startTime < 300){
-				pause.playFromStart();
-				if(System.currentTimeMillis() - timeFirstTouch < 300) {
-					System.out.println("scrollBar double");
-					scrollBar.setValue((event.getTouchPoint().getY()*scrollBar.getMax()) / zoneScrollVirtual_.getHeight());
-				}
-				else
-				{
-					System.out.println("scrollBar simple");
-					timeFirstTouch = System.currentTimeMillis();
-		
-					if(event.getTouchPoint().getY() < zoneScrollVirtual_.getHeight() / 2)
-						scrollBar.setValue(scrollBar.getValue()-1);
+		if(TouchID == event.getTouchPoint().getId()) {
+			if(!lockedProperty.getValue()) {
+				if(System.currentTimeMillis() - startTime < 300){
+					pause.playFromStart();
+					if(System.currentTimeMillis() - timeFirstTouch < 300) {
+						System.out.println("scrollBar double");
+						scrollBar.setValue((event.getTouchPoint().getY()*scrollBar.getMax()) / zoneScrollVirtual_.getHeight());
+					}
 					else
-						scrollBar.setValue(scrollBar.getValue()+1);
+					{
+						System.out.println("scrollBar simple");
+						timeFirstTouch = System.currentTimeMillis();
+			
+						if(event.getTouchPoint().getY() < zoneScrollVirtual_.getHeight() / 2)
+							scrollBar.setValue(scrollBar.getValue()-1);
+						else
+							scrollBar.setValue(scrollBar.getValue()+1);
+					}
 				}
 			}
 		}

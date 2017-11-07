@@ -1,6 +1,5 @@
 package application;
 
-import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
@@ -132,11 +131,11 @@ public class MainCanvas extends Canvas{
 	}
 	public void contraste(double x, double y) {
 
-		if(Math.abs(x) >= 6 && Math.abs(x) > Math.abs(y) && contrasteX > 0) {
-			contrasteX -=0.05;
+		if(Math.abs(x) > Math.abs(y) && contrasteX > 0) {
+			contrasteX -=Math.abs(x)*0.0002;
 		}
-		else if(Math.abs(y) >= 6 && Math.abs(x) < Math.abs(y) && contrasteX < 1) {
-			contrasteX +=0.05;
+		else if(Math.abs(x) < Math.abs(y) && contrasteX < 1) {
+			contrasteX +=Math.abs(y)*0.0002;
 		}
 		draw();
 	}

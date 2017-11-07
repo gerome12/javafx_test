@@ -157,7 +157,6 @@ public class MenuController {
 
 	public void handleOnDragOver(DragEvent event) {
 		/* data is dragged over the target */
-        System.out.println(event.getEventType().getName());
         event.acceptTransferModes(TransferMode.LINK);
         event.consume();
 	}
@@ -214,7 +213,6 @@ public class MenuController {
 		menuGroup.getChildren().add(unlockBorder);
 		lockedProperty.set(true);
 		event.consume();
-		System.out.println("unlock is visible");
 	}
 	
 	
@@ -240,7 +238,6 @@ public class MenuController {
 	public void handleOnTouchPressUnlock(TouchEvent event) {
 		if(lockedProperty.getValue()) {
 			unlockProgress.setVisible(true);
-			System.out.println("unlock starting");
 			timeline.playFrom(Duration.ZERO);
 		}
 		
@@ -253,7 +250,6 @@ public class MenuController {
 			
 			timeline.stop();
 		} else {
-			System.out.println("unlock");
 			lockedProperty.set(false);
 			menuGroup.getChildren().remove(unlockBorder);
 		}
