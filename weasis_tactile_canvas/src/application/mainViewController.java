@@ -249,7 +249,6 @@ public class mainViewController {
 			case 1 :
 				
 				if (mode == 0 || mode == 1) {
-					System.out.println("contrast");
 					Contraste(event.getDeltaX(), event.getDeltaY());
 				}
 						
