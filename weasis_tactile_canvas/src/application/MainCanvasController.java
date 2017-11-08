@@ -86,6 +86,7 @@ public class MainCanvasController {
 	 *                         SCROLL                                *
 	 *****************************************************************/
 	private Integer mode = 0;
+	
 	public void handleOnScroll(ScrollEvent event) {
 		if(!lockedProperty.getValue()) {
 	
