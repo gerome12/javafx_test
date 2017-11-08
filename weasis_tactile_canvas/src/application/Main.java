@@ -36,7 +36,7 @@ public class Main extends Application {
         loaderMenu.setLocation(Main.class.getResource("Menu.fxml"));
         Group menu = (Group) loaderMenu.load();
         menuController = (MenuController) loaderMenu.getController();
-        menuController.setParam(scene,mainViewConroller.canvas);
+        menuController.setParam(scene, mainViewConroller.canvas, primaryStage);
         
         mainViewConroller.lockedProperty.bind(menuController.lockedProperty);
         mainViewConroller.canvas.canvasController.lockedProperty.bind(menuController.lockedProperty);

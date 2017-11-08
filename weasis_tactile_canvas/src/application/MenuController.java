@@ -1,5 +1,7 @@
 package application;
 
+import java.io.File;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -25,6 +27,9 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MenuController {
@@ -44,6 +49,8 @@ public class MenuController {
 	@FXML
 	Node lock;
 	@FXML
+	Node openFile;
+	@FXML
 	Node unlockBorder;
 	@FXML
 	ProgressIndicator unlockProgress;
@@ -54,7 +61,7 @@ public class MenuController {
 	MainCanvas canvas;
 	FadeTransition ftShow;
 	FadeTransition ftHide;
-
+	Stage stage;
 
 	@FXML
 	public void initialize() {
@@ -91,6 +98,11 @@ public class MenuController {
 		lock.setOnDragEntered(this::handleOnDragEntered);
 		lock.setOnDragExited(this::handleOnDragExited);
 		lock.setOnDragDropped(this::handleOnDragDroppedLock);
+		
+		openFile.setOnDragOver(this::handleOnDragOver);
+		openFile.setOnDragEntered(this::handleOnDragEntered);
+		openFile.setOnDragExited(this::handleOnDragExited);
+		openFile.setOnDragDropped(this::handleOnDragDroppedOpenFile);
 
 		
 		initUnlock();
@@ -99,7 +111,9 @@ public class MenuController {
 		
 	}
 
-	public void setParam(Scene scene, MainCanvas canvas){
+	public void setParam(Scene scene, MainCanvas canvas, Stage stage){
+		
+		this.stage = stage;
 		
 		this.canvas = canvas;
 		
@@ -127,7 +141,6 @@ public class MenuController {
 		if(!lockedProperty.get()) {
 	        /* drag was detected, start drag-and-drop gesture*/
 			Node bouton = (Node)event.getSource();
-	        System.out.println(event.getEventType().getName());
 	
 	        /* allow any transfer mode */
 	        Dragboard db = bouton.startDragAndDrop(TransferMode.LINK);
@@ -144,9 +157,7 @@ public class MenuController {
 	}
 
 	public void handleOnDragDone(DragEvent event) {
-    	System.out.println(event.getEventType().getName());
     	ftHide.play();
-
         event.consume();
 	}
 
@@ -213,6 +224,21 @@ public class MenuController {
 		menuGroup.getChildren().add(unlockBorder);
 		lockedProperty.set(true);
 		event.consume();
+	}
+	
+	public void handleOnDragDroppedOpenFile(DragEvent event) {
+
+		
+		event.consume();
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setTitle("Chose a DICOM directory");		
+		File file = directoryChooser.showDialog(stage);
+		
+		if(file == null) {
+			System.out.println("file = null");
+		} else {
+			System.out.println("DICOM file : " + file.getPath());
+		}
 	}
 	
 	
