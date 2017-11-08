@@ -15,6 +15,8 @@ import javafx.util.Duration;
 
 public class MainCanvas extends Canvas{
 	
+	private MainCanvasController canvasController;
+	
 	private Image image;
 	public String imageName;
 	
@@ -30,6 +32,8 @@ public class MainCanvas extends Canvas{
 	private ScrollController sc;
 	
 	public MainCanvas() {
+		
+		canvasController = new MainCanvasController(this);
 
 		this.widthProperty().addListener(new ChangeListener<Number>() {
 		    @Override
