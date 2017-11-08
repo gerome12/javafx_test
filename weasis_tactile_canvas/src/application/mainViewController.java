@@ -1,14 +1,11 @@
 //proto de weasis tactile avec canvas
 package application;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Set;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
-import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
@@ -27,10 +24,8 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -201,11 +196,13 @@ public class mainViewController {
 	}
 	
     public void handleOnTouchRelease(TouchEvent event){
+    	System.out.println("touch");
     	hidePellicule();
     	event.consume();
     }
     public void handleOnMouseClicked(MouseEvent event){
 //    	hidePellicule();
+    	System.out.println("mouse");
     	event.consume();
     }
 
