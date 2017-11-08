@@ -98,9 +98,9 @@ public class MainCanvasController {
 			case 1 :
 				
 				if (mode == 0 || mode == 1) {
+					mode = 1;
 					canvas.contraste(event.getDeltaX(), event.getDeltaY());
-				}
-						
+				}		
 				break;
 			}
 		}
@@ -109,16 +109,9 @@ public class MainCanvasController {
 
 	public void handleOnScrollStart(ScrollEvent event) {
 		event.consume();
-		if(event.getTouchCount() > 2) {
-			mode = 3;
-		}
-		event.consume();
 	}
 
 	public void handleOnScrollEnd(ScrollEvent event) {
-		if(event.getTouchCount() == 0) {
-			mode = 0;
-		}
 		event.consume();
 	}
 
@@ -163,6 +156,11 @@ public class MainCanvasController {
     
 	private void handleTouchPress(TouchEvent event) {
 		if(!lockedProperty.getValue()) {
+			
+			if(event.getTouchCount() > 2) {
+				mode = 3;
+			}
+			
 			pause.stop();
 			touchevent.add("press");
 			pause.playFromStart();
@@ -172,6 +170,10 @@ public class MainCanvasController {
 	private Double x,y;
 	private void handleTouchRelease(TouchEvent event) {
 		if(!lockedProperty.getValue()) {
+			
+			if(event.getTouchCount() == 1) {
+				mode = 0;
+			}
 			
 			x = event.getTouchPoint().getX();
 			y = event.getTouchPoint().getY();
