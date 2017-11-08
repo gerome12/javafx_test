@@ -15,7 +15,8 @@ import javafx.util.Duration;
 
 public class MainCanvas extends Canvas{
 	
-	private MainCanvasController canvasController;
+	@SuppressWarnings("unused")
+	MainCanvasController canvasController;
 	
 	private Image image;
 	public String imageName;
@@ -25,6 +26,7 @@ public class MainCanvas extends Canvas{
 	private double translateY=0;
 	private double scroll=0;
 	private double contrasteX=1;
+	@SuppressWarnings("unused")
 	private double contrasteY=1;
 	
 	private ParallelTransition parallelTransition;

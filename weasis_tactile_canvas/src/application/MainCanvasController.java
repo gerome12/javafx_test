@@ -142,7 +142,7 @@ public class MainCanvasController {
     
     
     /*****************************************************************
-	 *                         TOUCH                                  *
+	 *                         TOUCH                                 *
 	 *****************************************************************/
     
     private static ArrayList<String> doubleTab2Fingers = new ArrayList<String>(Arrays.asList("press","press","release","release","press","press","release","release"));
@@ -202,4 +202,11 @@ public class MainCanvasController {
 		touchevent.clear();
 	}
 
+    /*****************************************************************
+	 *                         SCROLL (DICOM)                        *
+	 *****************************************************************/
+	
+	public void setScroll(Double value) {
+		canvas.scroll(value);
+	}
 }

@@ -24,7 +24,6 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TouchEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -34,7 +33,7 @@ import javafx.util.Duration;
 
 
 
-public class mainViewController {
+public class MainViewController {
 
 	private Scene scene;
 	BooleanProperty lockedProperty = new SimpleBooleanProperty(false);
@@ -67,11 +66,7 @@ public class mainViewController {
 			c.setOnDragDone(this::handleOnDragDone);
 		}//end for
 
-
-		closePelicule.setOnTouchReleased(this::handleOnTouchRelease);
 		closePelicule.setOnMouseClicked(this::handleOnMouseClicked);
-		
-
 
         peliculeViewer.widthProperty().addListener(new ChangeListener<Object>() {
         	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {
@@ -195,14 +190,9 @@ public class mainViewController {
     	pt.setOnFinished(this::finishHidePellicule);
 	}
 	
-    public void handleOnTouchRelease(TouchEvent event){
-    	System.out.println("touch");
-    	hidePellicule();
-    	event.consume();
-    }
+	//Work with touch too
     public void handleOnMouseClicked(MouseEvent event){
-//    	hidePellicule();
-    	System.out.println("mouse");
+    	hidePellicule();
     	event.consume();
     }
 
@@ -247,24 +237,4 @@ public class mainViewController {
 		}
 		event.consume();
 	}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-    public void setStrock(double s) {
-    	canvas.scroll(s);
-    }
-    
-
-    
-    
 }

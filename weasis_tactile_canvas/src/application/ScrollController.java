@@ -31,7 +31,7 @@ public class ScrollController {
 	
 	BooleanProperty lockedProperty = new SimpleBooleanProperty(false);
 
-	private mainViewController vc;
+	private MainCanvasController mainCanvasController;
 
 	@FXML
 	public void initialize() {
@@ -45,7 +45,7 @@ public class ScrollController {
 
         scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-            	vc.setStrock((double)new_val);
+            	mainCanvasController.setScroll((double)new_val);
 				ftHide.stop();	
             }
         });
@@ -61,9 +61,9 @@ public class ScrollController {
 		ftHide.playFrom(Duration.millis(1000));
 	}
 	
-	public void setParam(Scene scene, mainViewController vc){
+	public void setParam(Scene scene, MainCanvasController mainCanvasController){
 
-		this.vc = vc;
+		this.mainCanvasController = mainCanvasController;
 
 		scrollBar.layoutXProperty().bind(scene.widthProperty().subtract(50));
 

@@ -13,9 +13,9 @@ import javafx.scene.paint.Color;
 
 public class Main extends Application {
 
-	mainViewController vc;
-	MenuController mc;
-	ScrollController sc;
+	MainViewController mainViewConroller;
+	MenuController menuController;
+	ScrollController scrollController;
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
@@ -27,27 +27,28 @@ public class Main extends Application {
         FXMLLoader loaderVC = new FXMLLoader();
         loaderVC.setLocation(Main.class.getResource("mainView.fxml"));
         AnchorPane r = (AnchorPane) loaderVC.load();
-        vc = (mainViewController) loaderVC.getController();
-        vc.setParam(scene);
+        mainViewConroller = (MainViewController) loaderVC.getController();
+        mainViewConroller.setParam(scene);
 
 
         // Load root layout from fxml file.
         FXMLLoader loaderMenu = new FXMLLoader();
         loaderMenu.setLocation(Main.class.getResource("Menu.fxml"));
         Group menu = (Group) loaderMenu.load();
-        mc = (MenuController) loaderMenu.getController();
-        mc.setParam(scene,vc.canvas);
+        menuController = (MenuController) loaderMenu.getController();
+        menuController.setParam(scene,mainViewConroller.canvas);
         
-        vc.lockedProperty.bind(mc.lockedProperty);
+        mainViewConroller.lockedProperty.bind(menuController.lockedProperty);
+        mainViewConroller.canvas.canvasController.lockedProperty.bind(menuController.lockedProperty);
 
         // Load root layout from fxml file.
         FXMLLoader loaderScroll = new FXMLLoader();
         loaderScroll.setLocation(Main.class.getResource("Scroll.fxml"));
         Group scroll = (Group) loaderScroll.load();
-        sc = (ScrollController) loaderScroll.getController();
-        sc.setParam(scene, vc);
-        sc.lockedProperty.bind(mc.lockedProperty);
-        vc.setScrollBar(sc);
+        scrollController = (ScrollController) loaderScroll.getController();
+        scrollController.setParam(scene, mainViewConroller.canvas.canvasController);
+        scrollController.lockedProperty.bind(menuController.lockedProperty);
+        mainViewConroller.setScrollBar(scrollController);
 
 //        root.setCenter(r);
         root.getChildren().add(r);
