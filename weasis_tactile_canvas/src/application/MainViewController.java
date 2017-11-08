@@ -1,6 +1,7 @@
 //proto de weasis tactile avec canvas
 package application;
 
+import java.io.IOException;
 import java.util.Set;
 
 import javafx.animation.KeyFrame;
@@ -14,12 +15,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -50,54 +55,110 @@ public class MainViewController {
 	SVGPath closePelicule;
 	
 	MainCanvas canvas;
+	ScrollBar verticalScrollBar;
 	
 	@FXML
-	public void initialize() {
+	public void initialize() throws IOException {
 				
 		canvas = new MainCanvas();
 		mainHBox.getChildren().add(1,canvas);
 		System.out.println("**INFO**  initialize mainView ");
 
-		for (int i = 1; i <= 5; i++) {
-			PeliculeCanvas c = new PeliculeCanvas((i%3)+1+".jpg");
-			peliculeContener.getChildren().add(c);
+		
+		String[] name = {"Jean Dujardin","Paul Lepoulpe","Toto l'Asticot"};
+		for (int j = 0; j < 3; j++) {
+	        FXMLLoader loaderPatient = new FXMLLoader();
+	        loaderPatient.setLocation(Main.class.getResource("PatientView.fxml"));
+	        Group patient = (Group) loaderPatient.load();
+	        PatientController  patientController = (PatientController) loaderPatient.getController();
+	        
+	        patientController.setName(name[j]);
+			for (int i = 1; i <= 3; i++) {
+				PeliculeCanvas c = new PeliculeCanvas((i%3)+1+".jpg", lockedProperty);
 
-			c.setOnDragDetected(this::handleOnDragDetected);
-			c.setOnDragDone(this::handleOnDragDone);
-		}//end for
+				patientController.addPeliculeCanvas(c);
 
+			}
+			patientController.SetExpanded(false);
+			peliculeContener.getChildren().add(patient);
+		}
+		
+		
+
+		
+		Set<Node> nodes = peliculeViewer.lookupAll(".scroll-bar");
+        for (final Node node : nodes) {
+            if (node instanceof ScrollBar) {
+                ScrollBar sb = (ScrollBar) node;
+                if (sb.getOrientation() == Orientation.VERTICAL) {
+                	verticalScrollBar = sb;
+                }
+            }
+        }
+        System.out.println(verticalScrollBar);
+        
+        peliculeContener.heightProperty().addListener(new ChangeListener<Object>() {
+        	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {
+
+        		//Obtenir la taille en pixel de la scroll bar vertical
+        		double sbWidth = 0;
+        		Set<Node> nodes = peliculeViewer.lookupAll(".scroll-bar");
+                for (final Node node : nodes) {
+                    if (node instanceof ScrollBar) {
+                        ScrollBar sb = (ScrollBar) node;
+                        if (sb.getOrientation() == Orientation.VERTICAL && sb.isVisible() == true) {
+                            sbWidth = sb.getWidth();
+                        }
+                    }
+                }
+                
+        		for (Object iterable_element : peliculeContener.getChildren()) {
+        			Group g = (Group)iterable_element;
+        			TitledPane tp = (TitledPane)g.getChildren().get(0);
+        			tp.setPrefWidth((double)newVal-sbWidth);    			
+				}
+        	}
+		});
+		
 		closePelicule.setOnMouseClicked(this::handleOnMouseClicked);
 
         peliculeViewer.widthProperty().addListener(new ChangeListener<Object>() {
         	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {
 
-
         		//Obtenir la taille en pixel de la scroll bar vertical
         		double sbWidth = 0;
-				Set<Node> nodes = peliculeViewer.lookupAll(".scroll-bar");
-		        for (final Node node : nodes) {
-		            if (node instanceof ScrollBar) {
-		                ScrollBar sb = (ScrollBar) node;
-		                if (sb.getOrientation() == Orientation.VERTICAL && sb.isVisible() == true) {
-		                    sbWidth = sb.getWidth();
-		                }
-		            }
-		        }
-
-
+        		Set<Node> nodes = peliculeViewer.lookupAll(".scroll-bar");
+                for (final Node node : nodes) {
+                    if (node instanceof ScrollBar) {
+                        ScrollBar sb = (ScrollBar) node;
+                        if (sb.getOrientation() == Orientation.VERTICAL && sb.isVisible() == true) {
+                            sbWidth = sb.getWidth();
+                        }
+                    }
+                }
+        		
         		for (Object iterable_element : peliculeContener.getChildren()) {
-
-           			if(iterable_element.getClass() == PeliculeCanvas.class)
-        			{
-           				PeliculeCanvas pc = (PeliculeCanvas)iterable_element;
-        				pc.setHeight((double)newVal - peliculeContener.getPadding().getLeft()
-        						                    - peliculeContener.getPadding().getRight()
-        						                    - sbWidth - 2);
-        				pc.setWidth((double)newVal - peliculeContener.getPadding().getLeft()
-        						                   - peliculeContener.getPadding().getRight()
-        						                   - sbWidth - 2);//-2 permet de supprimer la scroll bar Horizontal
+        			
+        			
+        			Group g = (Group)iterable_element;
+        			
+        			TitledPane tp = (TitledPane)g.getChildren().get(0);
+        			
+        			tp.setPrefWidth((double)newVal-sbWidth);
+        			
+        			VBox vb = (VBox) tp.getContent();
+        			
+        			for (Object iterable_element2 : vb.getChildren()) {
+        				PeliculeCanvas pc = (PeliculeCanvas)iterable_element2;
+        				pc.setHeight((double)newVal - vb.getPadding().getLeft()
+        						                    - vb.getPadding().getRight()
+        						                    - sbWidth);
+        				pc.setWidth((double)newVal - vb.getPadding().getLeft()
+        						                   - vb.getPadding().getRight()
+        						                   - sbWidth);//-2 permet de supprimer la scroll bar Horizontal
         				pc.Draw();
         			}
+        			
 				}
         	}
 		});
@@ -131,40 +192,8 @@ public class MainViewController {
         			closePelicule.setLayoutX((double) newVal);	
         	}
 		});
-	}
-
-	/*****************************************************************
-	 *                         DRAG                                  *
-	 *****************************************************************/
-	public void handleOnDragDetected(MouseEvent event) {
-		/* drag was detected, start drag-and-drop gesture*/
-		System.out.println("onDragDetected");
-		if(!lockedProperty.getValue()) {
-			/* allow any transfer mode */
-			Dragboard db = ((PeliculeCanvas)event.getSource()).startDragAndDrop(TransferMode.COPY);
-	
-			SnapshotParameters sp = new SnapshotParameters();
-			db.setDragView(((PeliculeCanvas)event.getSource()).snapshot(sp, null));
-	
-			/* put a string on dragboard */
-			ClipboardContent content = new ClipboardContent();
-			content.putString(((PeliculeCanvas)event.getSource()).imageName);
-			db.setContent(content);
-		}
-
-		event.consume();
-	}
-
-	public void handleOnDragDone(DragEvent event) {
-		/* the drag-and-drop gesture ended */
-		System.out.println("onDragDone");
-		/* if the data was successfully moved, clear it */
-		if (event.getTransferMode() == TransferMode.COPY) {
-			//vbox.getChildren().remove((Node)child);
-				//im1.setImage(null);
-			//((ImageView) child).setImage(event.getDragboard().getImage());
-		}
-		event.consume();
+        
+        
 	}
    
 

@@ -106,9 +106,11 @@ public class MenuController {
 
 		
 		initUnlock();
-		unlockBorder.setOnTouchReleased(this::handleOnTouchReleaseUnlock);
-		unlockBorder.setOnTouchPressed(this::handleOnTouchPressUnlock);
+		unlockBorder.setOnMousePressed(this::handleOnMousePressedUnlock);
+		unlockBorder.setOnMouseReleased(this::handleOnMouseReleasedUnlock);
 		
+		unlockProgressBorder.setLayoutX(unlockBorder.getLayoutX()-40);
+		unlockProgressBorder.setLayoutY(unlockBorder.getLayoutY()-40);
 	}
 
 	public void setParam(Scene scene, MainCanvas canvas, Stage stage){
@@ -174,34 +176,17 @@ public class MenuController {
 
 	public void handleOnDragEntered(DragEvent event) {
         /* the drag-and-drop gesture entered the target */
-		BorderPane rect = (BorderPane)event.getSource();
-        System.out.println("onDragEntered");
-        rect.setTranslateY(rect.getTranslateY()+2);
+		BorderPane bp = (BorderPane)event.getSource();
+		bp.setStyle("-fx-background-color:#FFFFFF22");
+        bp.setTranslateY(bp.getTranslateY()+2);
         event.consume();
 	}
 
 	public void handleOnDragExited(DragEvent event) {
         /* mouse moved away, remove the graphical cues */
-		BorderPane rect = (BorderPane)event.getSource();
-    	rect.setTranslateY(rect.getTranslateY()-2);
-        event.consume();
-	}
-
-	public void handleOnDragDropped(DragEvent event) {
-        /* data dropped */
-		BorderPane rect = (BorderPane)event.getSource();
-        System.out.println("onDragDropped");
-
-        /* let the source know whether the string was successfully
-         * transferred and used */
-        event.setDropCompleted(true);
-        for (Node children : rect.getParent().getChildrenUnmodifiable()) {
-        	BorderPane r = (BorderPane) children;
-        	r.setStyle("-fx-background-color:none");
-		}
-        rect.setStyle("-fx-background-color:GAINSBORO");
-
-        System.out.println(rect.getId());
+		BorderPane bp = (BorderPane)event.getSource();
+		bp.setStyle("-fx-background-color:none");
+    	bp.setTranslateY(bp.getTranslateY()-2);
         event.consume();
 	}
 
@@ -261,7 +246,7 @@ public class MenuController {
 		
 	}
 	
-	public void handleOnTouchPressUnlock(TouchEvent event) {
+	public void handleOnMousePressedUnlock(MouseEvent event) {
 		if(lockedProperty.getValue()) {
 			unlockProgress.setVisible(true);
 			timeline.playFrom(Duration.ZERO);
@@ -270,7 +255,7 @@ public class MenuController {
 		event.consume();
 	}
 	
-	public void handleOnTouchReleaseUnlock(TouchEvent event) {
+	public void handleOnMouseReleasedUnlock(MouseEvent event) {
 
 		if(unlockProgress.getProgress() < 1) {
 			

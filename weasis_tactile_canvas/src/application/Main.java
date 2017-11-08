@@ -21,19 +21,18 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		primaryStage.setTitle("Weasis Tactile canvas");
 		AnchorPane root= new AnchorPane();
-        Scene scene = new Scene(root, 900, 500, Color.WHITE);
+        Scene scene = new Scene(root, Color.WHITE);
 
-        // Load root layout from fxml file.
+
         FXMLLoader loaderVC = new FXMLLoader();
-        loaderVC.setLocation(Main.class.getResource("mainView.fxml"));
+        loaderVC.setLocation(Main.class.getResource("MainView.fxml"));
         AnchorPane r = (AnchorPane) loaderVC.load();
         mainViewConroller = (MainViewController) loaderVC.getController();
         mainViewConroller.setParam(scene);
 
 
-        // Load root layout from fxml file.
         FXMLLoader loaderMenu = new FXMLLoader();
-        loaderMenu.setLocation(Main.class.getResource("Menu.fxml"));
+        loaderMenu.setLocation(Main.class.getResource("MenuView.fxml"));
         Group menu = (Group) loaderMenu.load();
         menuController = (MenuController) loaderMenu.getController();
         menuController.setParam(scene, mainViewConroller.canvas, primaryStage);
@@ -41,16 +40,16 @@ public class Main extends Application {
         mainViewConroller.lockedProperty.bind(menuController.lockedProperty);
         mainViewConroller.canvas.canvasController.lockedProperty.bind(menuController.lockedProperty);
 
-        // Load root layout from fxml file.
+
         FXMLLoader loaderScroll = new FXMLLoader();
-        loaderScroll.setLocation(Main.class.getResource("Scroll.fxml"));
+        loaderScroll.setLocation(Main.class.getResource("ScrollView.fxml"));
         Group scroll = (Group) loaderScroll.load();
         scrollController = (ScrollController) loaderScroll.getController();
         scrollController.setParam(scene, mainViewConroller.canvas.canvasController);
         scrollController.lockedProperty.bind(menuController.lockedProperty);
         mainViewConroller.setScrollBar(scrollController);
 
-//        root.setCenter(r);
+
         root.getChildren().add(r);
         root.getChildren().add(scroll);
         root.getChildren().add(menu);
