@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.VBox?>
 
-<Group xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PatientController">
+<Group fx:id="patientGroup" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PatientController">
    <children>
       <TitledPane fx:id="patient" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="untitled">
          <content>
