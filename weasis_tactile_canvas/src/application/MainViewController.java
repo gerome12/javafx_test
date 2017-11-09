@@ -55,7 +55,7 @@ public class MainViewController {
 	SVGPath closePelicule;
 	
 	MainCanvas canvas;
-	ScrollBar verticalScrollBar;
+
 	
 	@FXML
 	public void initialize() throws IOException {
@@ -82,20 +82,6 @@ public class MainViewController {
 			patientController.SetExpanded(false);
 			peliculeContener.getChildren().add(patient);
 		}
-		
-		
-
-		
-		Set<Node> nodes = peliculeViewer.lookupAll(".scroll-bar");
-        for (final Node node : nodes) {
-            if (node instanceof ScrollBar) {
-                ScrollBar sb = (ScrollBar) node;
-                if (sb.getOrientation() == Orientation.VERTICAL) {
-                	verticalScrollBar = sb;
-                }
-            }
-        }
-        System.out.println(verticalScrollBar);
         
         peliculeContener.heightProperty().addListener(new ChangeListener<Object>() {
         	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {
@@ -115,10 +101,23 @@ public class MainViewController {
         		for (Object iterable_element : peliculeContener.getChildren()) {
         			Group g = (Group)iterable_element;
         			TitledPane tp = (TitledPane)g.getChildren().get(0);
-        			tp.setPrefWidth((double)newVal-sbWidth);    			
+        			tp.setPrefWidth(peliculeViewer.getPrefWidth()-sbWidth);
+        			
+        			VBox vb = (VBox) tp.getContent();
+        			for (Object iterable_element2 : vb.getChildren()) {
+        				PeliculeCanvas pc = (PeliculeCanvas)iterable_element2;
+        				pc.setHeight(peliculeViewer.getPrefWidth() - vb.getPadding().getLeft()
+        						                                   - vb.getPadding().getRight()
+        						                                   - sbWidth);
+        				pc.setWidth(peliculeViewer.getPrefWidth() - vb.getPadding().getLeft()
+        						                                  - vb.getPadding().getRight()
+        						                                  - sbWidth);
+        				pc.Draw();
+        			}
 				}
         	}
 		});
+        
 		
 		closePelicule.setOnMouseClicked(this::handleOnMouseClicked);
 
@@ -155,7 +154,7 @@ public class MainViewController {
         						                    - sbWidth);
         				pc.setWidth((double)newVal - vb.getPadding().getLeft()
         						                   - vb.getPadding().getRight()
-        						                   - sbWidth);//-2 permet de supprimer la scroll bar Horizontal
+        						                   - sbWidth);
         				pc.Draw();
         			}
         			
