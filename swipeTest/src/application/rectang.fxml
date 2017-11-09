@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXColorPicker?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXScrollPane?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainControlleur">
    <children>
       <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="500.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
+      <JFXColorPicker layoutX="300.0" layoutY="200.0" />
+      <JFXScrollPane layoutX="427.0" layoutY="65.0">
+         <children>
+            <JFXListView fx:id="lst" />
+         </children>
+      </JFXScrollPane>
+      <JFXTimePicker defaultColor="#940041" layoutX="61.0" layoutY="138.0" promptText="kokjlk" />
    </children>
 </AnchorPane>

@@ -1,14 +1,22 @@
 package application;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.SwipeEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.shape.Rectangle;
+
 
 public class mainControlleur {
 
 	@FXML
 	Rectangle rect;
+	
+	@FXML
+	JFXListView<Label> lst;
 	
 	@FXML
 	public void initialize() {
@@ -18,6 +26,13 @@ public class mainControlleur {
 		rect.setOnSwipeUp(this::sw);
 		rect.setOnTouchPressed(this::touchP);
 		rect.setOnTouchReleased(this::touchR);
+		
+		
+		
+		for(int i = 0 ; i < 100 ; i++) lst.getItems().add(new Label("Item " + i));
+		lst.getStyleClass().add("mylistview");
+		lst.setVerticalGap(1.0);
+
 	}
 	
 	private void sw(SwipeEvent event)
