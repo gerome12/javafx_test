@@ -98,6 +98,7 @@ public class ScrollController {
 		if(!lockedProperty.getValue()) {
 			if(!event.isInertia()){
 				scrollBar.setOpacity(0.6);
+				System.out.println("11111111111111");
 				Double delta = event.getDeltaY();
 				Double val = scrollBar.getValue() + ((delta * scrollBar.getMax())/ scrollBar.getHeight());
 	
@@ -124,9 +125,10 @@ public class ScrollController {
 	private double timeFirstTouch;
 	private Integer TouchID;
 	private void touchPress(TouchEvent event) {
-		if(event.getTouchCount() == 1) {
-			if(!lockedProperty.getValue()) {
+		if(!lockedProperty.getValue()) {
+			if(event.getTouchCount() == 1) {
 				scrollBar.setOpacity(0.6);
+				System.out.println("22222222222222222");
 				TouchID = event.getTouchPoint().getId();
 				startTime = System.currentTimeMillis();		
 			}
@@ -135,33 +137,35 @@ public class ScrollController {
 	}
 
 	private void touchRelease(TouchEvent event) {
-		if(TouchID == event.getTouchPoint().getId()) {
-			pause.playFromStart();
-			if(!lockedProperty.getValue()) {
-				if(System.currentTimeMillis() - startTime < 300){
-					
-					if(System.currentTimeMillis() - timeFirstTouch < 300) {
-						System.out.println("scrollBar double");
-
-						scrollBar.setValue((event.getTouchPoint().getY()*scrollBar.getMax()) / zoneScrollVirtual_.getHeight());
-					}
-					else
-					{
-						Double val;
-						System.out.println("scrollBar simple");
-						timeFirstTouch = System.currentTimeMillis();
-			
-						if(event.getTouchPoint().getY() < zoneScrollVirtual_.getHeight() / 2)
-							val = scrollBar.getValue()-1;
+		if(!lockedProperty.getValue()) {
+			if(TouchID == event.getTouchPoint().getId()) {
+				pause.playFromStart();
+				if(!lockedProperty.getValue()) {
+					if(System.currentTimeMillis() - startTime < 300){
+						
+						if(System.currentTimeMillis() - timeFirstTouch < 300) {
+							System.out.println("scrollBar double");
+	
+							scrollBar.setValue((event.getTouchPoint().getY()*scrollBar.getMax()) / zoneScrollVirtual_.getHeight());
+						}
 						else
-							val = scrollBar.getValue()+1;
-						
-						if(val > scrollBar.getMax())
-							val = scrollBar.getMax();
-						else if (val < scrollBar.getMin())
-							val = scrollBar.getMin();
-						
-						scrollBar.setValue(val);
+						{
+							Double val;
+							System.out.println("scrollBar simple");
+							timeFirstTouch = System.currentTimeMillis();
+				
+							if(event.getTouchPoint().getY() < zoneScrollVirtual_.getHeight() / 2)
+								val = scrollBar.getValue()-1;
+							else
+								val = scrollBar.getValue()+1;
+							
+							if(val > scrollBar.getMax())
+								val = scrollBar.getMax();
+							else if (val < scrollBar.getMin())
+								val = scrollBar.getMin();
+							
+							scrollBar.setValue(val);
+						}
 					}
 				}
 			}

@@ -106,8 +106,8 @@ public class MenuController {
 
 		
 		initUnlock();
-		unlockBorder.setOnMousePressed(this::handleOnMousePressedUnlock);
-		unlockBorder.setOnMouseReleased(this::handleOnMouseReleasedUnlock);
+		unlockBorder.setOnTouchPressed(this::handleOnTouchPressedUnlock);
+		unlockBorder.setOnTouchReleased(this::handleOnTouchReleasedUnlock);
 		
 		unlockProgressBorder.setLayoutX(unlockBorder.getLayoutX()-40);
 		unlockProgressBorder.setLayoutY(unlockBorder.getLayoutY()-40);
@@ -246,7 +246,8 @@ public class MenuController {
 		
 	}
 	
-	public void handleOnMousePressedUnlock(MouseEvent event) {
+	public void handleOnTouchPressedUnlock(TouchEvent event) {
+		System.out.println("locklocklock");
 		if(lockedProperty.getValue()) {
 			unlockProgress.setVisible(true);
 			timeline.playFrom(Duration.ZERO);
@@ -255,7 +256,7 @@ public class MenuController {
 		event.consume();
 	}
 	
-	public void handleOnMouseReleasedUnlock(MouseEvent event) {
+	public void handleOnTouchReleasedUnlock(TouchEvent event) {
 
 		if(unlockProgress.getProgress() < 1) {
 			

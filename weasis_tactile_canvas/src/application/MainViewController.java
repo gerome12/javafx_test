@@ -60,12 +60,11 @@ public class MainViewController {
 	
 	@FXML
 	public void initialize() throws IOException {
-				
+
 		canvas = new MainCanvas();
 		mainHBox.getChildren().add(1,canvas);
-		System.out.println("**INFO**  initialize mainView ");
+		System.out.println("**INFO**  initialize mainView");
 
-		
 		String[] name = {"Jean Dujardin","Paul Lepoulpe","Toto l'Asticot"};
 		for (int j = 0; j < 3; j++) {
 	        FXMLLoader loaderPatient = new FXMLLoader();
