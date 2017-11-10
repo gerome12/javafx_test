@@ -16,4 +16,8 @@
          </content>
       </TitledPane>
    </children>
+   <userData>
+     		<fx:reference source="controller" />
+	</userData>
+
 </Group>

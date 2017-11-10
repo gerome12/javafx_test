@@ -95,9 +95,6 @@ public class MainCanvas extends Canvas{
 		translateY = translateY < -this.getHeight() * zoomFactorProperty.get() + (this.getHeight() / 2) ?  -this.getHeight() * zoomFactorProperty.get() + (this.getHeight() / 2) : translateY;
 		
 
-			
-			
-		
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		this.getGraphicsContext2D().setGlobalAlpha(contrasteX);
 		
@@ -126,15 +123,18 @@ public class MainCanvas extends Canvas{
 		}
 		draw();
 	}
+	
 	public void translate(double x,double y) {
 		this.translateX +=x;
 		this.translateY +=y;
 		draw();
 	}
+	
 	public void scroll(double num) {
 		scroll = num;
 		draw();
 	}
+	
 	public void contraste(double x, double y) {
 
 		if(Math.abs(x) > Math.abs(y) && contrasteX > 0) {

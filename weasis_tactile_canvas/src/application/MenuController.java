@@ -178,7 +178,7 @@ public class MenuController {
         /* the drag-and-drop gesture entered the target */
 		BorderPane bp = (BorderPane)event.getSource();
 		bp.setStyle("-fx-background-color:#FFFFFF22");
-        bp.setTranslateY(bp.getTranslateY()+2);
+//        bp.setTranslateY(bp.getTranslateY()+2);
         event.consume();
 	}
 
@@ -186,7 +186,7 @@ public class MenuController {
         /* mouse moved away, remove the graphical cues */
 		BorderPane bp = (BorderPane)event.getSource();
 		bp.setStyle("-fx-background-color:none");
-    	bp.setTranslateY(bp.getTranslateY()-2);
+//    	bp.setTranslateY(bp.getTranslateY()-2);
         event.consume();
 	}
 

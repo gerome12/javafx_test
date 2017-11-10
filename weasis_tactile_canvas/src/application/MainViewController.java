@@ -31,6 +31,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
@@ -52,7 +53,7 @@ public class MainViewController {
 	@FXML
 	AnchorPane mainPane;
 	@FXML
-	SVGPath closePelicule;
+	BorderPane closePelicule;
 	
 	MainCanvas canvas;
 
@@ -73,6 +74,7 @@ public class MainViewController {
 	        PatientController  patientController = (PatientController) loaderPatient.getController();
 	        
 	        patientController.setName(name[j]);
+	        patientController.setAccordeonMode(true);
 			for (int i = 1; i <= 3; i++) {
 				PeliculeCanvas c = new PeliculeCanvas((i%3)+1+".jpg", lockedProperty);
 
@@ -169,10 +171,12 @@ public class MainViewController {
 		canvas.setScrollBar(sc);
 	}
 	
+
+	
 	public void setParam(Scene scene) {
 		this.scene = scene;
-		
-		peliculeViewer.prefWidthProperty().bind(scene.widthProperty().multiply(0.20));
+
+		scene.widthProperty().addListener(this::sceneWidthPropertListener);
 		
 		mainHBox.prefHeightProperty().bind(scene.heightProperty());
 		mainHBox.prefWidthProperty().bind(scene.widthProperty());
@@ -190,16 +194,30 @@ public class MainViewController {
         	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {	
         			closePelicule.setLayoutX((double) newVal);	
         	}
-		});
-        
-        
+		});    
 	}
    
-
+	
+	private static double peliculeViewerPrefWidth = 0.2;
+	private static double peliculeViewerMinWidth = 150;
+	private static double peliculeViewerMaxWidth = 250;
+	
+	private double peliculeViewerWidth;
+    private void sceneWidthPropertListener(ObservableValue<? extends Number> o, Number oldVal, Number newVal) {
+    	peliculeViewerWidth = (Double)newVal*peliculeViewerPrefWidth;
+    	peliculeViewerWidth = peliculeViewerWidth > peliculeViewerMaxWidth ? peliculeViewerMaxWidth : peliculeViewerWidth;
+    	peliculeViewerWidth = peliculeViewerWidth < peliculeViewerMinWidth ? peliculeViewerMinWidth : peliculeViewerWidth;
+    	if(peliculeViewerPrefWidthProperty) {
+    		peliculeViewer.setPrefWidth(peliculeViewerWidth);
+    	}
+    }
+    
+    
     /*****************************************************************
 	 *                         HIDE                                  *
 	 *****************************************************************/
 	private Boolean flagPelliculeShow = true;
+	private Boolean peliculeViewerPrefWidthProperty = true;
 	
 	private final Duration HIDE_PELICULE_TIME = Duration.millis(250);
 	ParallelTransition pt;
@@ -230,7 +248,7 @@ public class MainViewController {
     	if(!lockedProperty.getValue()) {
     		
 	    	if(flagPelliculeShow) {
-	        	peliculeViewer.prefWidthProperty().unbind();
+	    		peliculeViewerPrefWidthProperty = false;
 	        	rotateTransition.setFromAngle(0);
 	        	rotateTransition.setToAngle(180);
 	        	kv = new KeyValue(peliculeViewer.prefWidthProperty(), 0);
@@ -242,7 +260,7 @@ public class MainViewController {
 	    	} else {
 	        	rotateTransition.setFromAngle(180);
 	        	rotateTransition.setToAngle(0);
-	        	kv = new KeyValue(peliculeViewer.prefWidthProperty(), scene.getWidth()*0.2);
+	        	kv = new KeyValue(peliculeViewer.prefWidthProperty(), peliculeViewerWidth);
 	        	kf = new KeyFrame(HIDE_PELICULE_TIME, kv);
 	        	timeline.getKeyFrames().clear();
 	        	timeline.getKeyFrames().add(kf);
@@ -260,7 +278,7 @@ public class MainViewController {
 			canvas.widthProperty().bind(scene.widthProperty());
 			flagPelliculeShow=!flagPelliculeShow;
 		} else {
-			peliculeViewer.prefWidthProperty().bind(scene.widthProperty().multiply(0.20));
+			peliculeViewerPrefWidthProperty = true;
 			flagPelliculeShow=!flagPelliculeShow;
 		}
 		event.consume();
