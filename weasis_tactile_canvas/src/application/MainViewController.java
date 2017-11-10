@@ -87,6 +87,7 @@ public class MainViewController {
         
         peliculeContener.heightProperty().addListener(new ChangeListener<Object>() {
         	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {
+        		System.out.println("scrollpane hauteur changement");
 
         		//Obtenir la taille en pixel de la scroll bar vertical
         		double sbWidth = 0;
@@ -95,7 +96,7 @@ public class MainViewController {
                     if (node instanceof ScrollBar) {
                         ScrollBar sb = (ScrollBar) node;
                         if (sb.getOrientation() == Orientation.VERTICAL && sb.isVisible() == true) {
-                            sbWidth = sb.getWidth();
+                            sbWidth = sb.getWidth()+2;
                         }
                     }
                 }
@@ -125,7 +126,8 @@ public class MainViewController {
 
         peliculeViewer.widthProperty().addListener(new ChangeListener<Object>() {
         	@Override public void changed(ObservableValue<?> o, Object oldVal, Object newVal) {
-
+        		
+        		System.out.println("VBox largueur changement");
         		//Obtenir la taille en pixel de la scroll bar vertical
         		double sbWidth = 0;
         		Set<Node> nodes = peliculeViewer.lookupAll(".scroll-bar");
@@ -133,7 +135,7 @@ public class MainViewController {
                     if (node instanceof ScrollBar) {
                         ScrollBar sb = (ScrollBar) node;
                         if (sb.getOrientation() == Orientation.VERTICAL && sb.isVisible() == true) {
-                            sbWidth = sb.getWidth();
+                            sbWidth = sb.getWidth()+2;
                         }
                     }
                 }
